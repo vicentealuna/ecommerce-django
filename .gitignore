@@ -1,0 +1,22 @@
+# Entorno virtual
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Base de datos local (los datos se comparten con fixtures en base_de_datos/)
+db.sqlite3
+db.sqlite3-journal
+
+# Secretos y configuracion local
+.env
+
+# Editores
+.vscode/
+.idea/
+
+# Sistema operativo
+Thumbs.db
+.DS_Store
