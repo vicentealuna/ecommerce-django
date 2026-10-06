@@ -66,9 +66,17 @@ python manage.py migrate
 python manage.py loaddata base_de_datos/datos_iniciales.json
 ```
 
+Crea tu usuario para entrar a `/admin/`. Es solo tuyo y vive en tu computadora; inventa el nombre y la contraseña:
+
+```bash
+python manage.py createsuperuser
+```
+
 ```bash
 python manage.py runserver
 ```
+
+Abre `http://127.0.0.1:8000/` en el navegador. Las páginas dirán "En construcción" hasta que cada uno haga la suya.
 
 Si `Activate.ps1` da error de permisos, abre la terminal **cmd** en vez de PowerShell y usa `.venv\Scripts\activate.bat`.
 
