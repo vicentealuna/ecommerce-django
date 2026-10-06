@@ -1,0 +1,1010 @@
+[
+{
+  "model": "catalog.categoria",
+  "pk": 1,
+  "fields": {
+    "nombre": "Ropa",
+    "slug": "ropa",
+    "padre": null
+  }
+},
+{
+  "model": "catalog.categoria",
+  "pk": 2,
+  "fields": {
+    "nombre": "Camisetas",
+    "slug": "camisetas",
+    "padre": 1
+  }
+},
+{
+  "model": "catalog.categoria",
+  "pk": 3,
+  "fields": {
+    "nombre": "Calzado",
+    "slug": "calzado",
+    "padre": null
+  }
+},
+{
+  "model": "catalog.categoria",
+  "pk": 4,
+  "fields": {
+    "nombre": "Accesorios",
+    "slug": "accesorios",
+    "padre": null
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 1,
+  "fields": {
+    "categoria": 2,
+    "nombre": "Camiseta básica de algodón",
+    "slug": "camiseta-basica-de-algodon",
+    "descripcion": "Camiseta de algodón peinado, corte recto. Ideal para el día a día.",
+    "precio": "650.00",
+    "precio_oferta": null,
+    "destacado": true,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.278Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 2,
+  "fields": {
+    "categoria": 2,
+    "nombre": "Camiseta estampada",
+    "slug": "camiseta-estampada",
+    "descripcion": "Camiseta con estampado frontal. La talla L está agotada.",
+    "precio": "890.00",
+    "precio_oferta": "690.00",
+    "destacado": false,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.382Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 3,
+  "fields": {
+    "categoria": 1,
+    "nombre": "Pantalón jean clásico",
+    "slug": "pantalon-jean-clasico",
+    "descripcion": "Jean de corte clásico en mezclilla resistente.",
+    "precio": "1850.00",
+    "precio_oferta": null,
+    "destacado": true,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.428Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 4,
+  "fields": {
+    "categoria": 1,
+    "nombre": "Chaqueta impermeable",
+    "slug": "chaqueta-impermeable",
+    "descripcion": "Chaqueta ligera con capucha, resistente a la lluvia.",
+    "precio": "3200.00",
+    "precio_oferta": "2700.00",
+    "destacado": true,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.511Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 5,
+  "fields": {
+    "categoria": 3,
+    "nombre": "Tenis deportivos",
+    "slug": "tenis-deportivos",
+    "descripcion": "Tenis para correr con suela amortiguada.",
+    "precio": "4200.00",
+    "precio_oferta": null,
+    "destacado": false,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.567Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 6,
+  "fields": {
+    "categoria": 3,
+    "nombre": "Sandalias de playa",
+    "slug": "sandalias-de-playa",
+    "descripcion": "Sandalias livianas de secado rápido.",
+    "precio": "750.00",
+    "precio_oferta": "550.00",
+    "destacado": false,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.653Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 7,
+  "fields": {
+    "categoria": 4,
+    "nombre": "Gorra clásica",
+    "slug": "gorra-clasica",
+    "descripcion": "Gorra ajustable de visera curva.",
+    "precio": "480.00",
+    "precio_oferta": null,
+    "destacado": true,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.704Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 8,
+  "fields": {
+    "categoria": 4,
+    "nombre": "Mochila urbana",
+    "slug": "mochila-urbana",
+    "descripcion": "Mochila de 20 litros con compartimento para laptop.",
+    "precio": "2100.00",
+    "precio_oferta": null,
+    "destacado": false,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.738Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 9,
+  "fields": {
+    "categoria": 4,
+    "nombre": "Cinturón de cuero",
+    "slug": "cinturon-de-cuero",
+    "descripcion": "Cinturón de cuero genuino. Producto completamente agotado.",
+    "precio": "900.00",
+    "precio_oferta": null,
+    "destacado": false,
+    "activo": true,
+    "fecha_creacion": "2026-10-06T23:48:03.780Z"
+  }
+},
+{
+  "model": "catalog.producto",
+  "pk": 10,
+  "fields": {
+    "categoria": 4,
+    "nombre": "Bufanda de lana",
+    "slug": "bufanda-de-lana",
+    "descripcion": "Producto inactivo: no debe aparecer en la tienda.",
+    "precio": "600.00",
+    "precio_oferta": null,
+    "destacado": false,
+    "activo": false,
+    "fecha_creacion": "2026-10-06T23:48:03.808Z"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 1,
+  "fields": {
+    "producto": 1,
+    "imagen": "productos/camiseta-basica-de-algodon-1.jpg",
+    "texto_alternativo": "Camiseta básica de algodón, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 2,
+  "fields": {
+    "producto": 1,
+    "imagen": "productos/camiseta-basica-de-algodon-2.jpg",
+    "texto_alternativo": "Camiseta básica de algodón, foto 2"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 3,
+  "fields": {
+    "producto": 2,
+    "imagen": "productos/camiseta-estampada-1.jpg",
+    "texto_alternativo": "Camiseta estampada, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 4,
+  "fields": {
+    "producto": 3,
+    "imagen": "productos/pantalon-jean-clasico-1.jpg",
+    "texto_alternativo": "Pantalón jean clásico, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 5,
+  "fields": {
+    "producto": 3,
+    "imagen": "productos/pantalon-jean-clasico-2.jpg",
+    "texto_alternativo": "Pantalón jean clásico, foto 2"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 6,
+  "fields": {
+    "producto": 4,
+    "imagen": "productos/chaqueta-impermeable-1.jpg",
+    "texto_alternativo": "Chaqueta impermeable, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 7,
+  "fields": {
+    "producto": 5,
+    "imagen": "productos/tenis-deportivos-1.jpg",
+    "texto_alternativo": "Tenis deportivos, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 8,
+  "fields": {
+    "producto": 5,
+    "imagen": "productos/tenis-deportivos-2.jpg",
+    "texto_alternativo": "Tenis deportivos, foto 2"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 9,
+  "fields": {
+    "producto": 5,
+    "imagen": "productos/tenis-deportivos-3.jpg",
+    "texto_alternativo": "Tenis deportivos, foto 3"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 10,
+  "fields": {
+    "producto": 6,
+    "imagen": "productos/sandalias-de-playa-1.jpg",
+    "texto_alternativo": "Sandalias de playa, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 11,
+  "fields": {
+    "producto": 7,
+    "imagen": "productos/gorra-clasica-1.jpg",
+    "texto_alternativo": "Gorra clásica, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 12,
+  "fields": {
+    "producto": 8,
+    "imagen": "productos/mochila-urbana-1.jpg",
+    "texto_alternativo": "Mochila urbana, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 13,
+  "fields": {
+    "producto": 8,
+    "imagen": "productos/mochila-urbana-2.jpg",
+    "texto_alternativo": "Mochila urbana, foto 2"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 14,
+  "fields": {
+    "producto": 9,
+    "imagen": "productos/cinturon-de-cuero-1.jpg",
+    "texto_alternativo": "Cinturón de cuero, foto 1"
+  }
+},
+{
+  "model": "catalog.imagenproducto",
+  "pk": 15,
+  "fields": {
+    "producto": 10,
+    "imagen": "productos/bufanda-de-lana-1.jpg",
+    "texto_alternativo": "Bufanda de lana, foto 1"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 1,
+  "fields": {
+    "producto": 1,
+    "nombre": "S / Blanco"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 2,
+  "fields": {
+    "producto": 1,
+    "nombre": "M / Blanco"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 3,
+  "fields": {
+    "producto": 1,
+    "nombre": "L / Negro"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 4,
+  "fields": {
+    "producto": 2,
+    "nombre": "M / Azul"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 5,
+  "fields": {
+    "producto": 2,
+    "nombre": "L / Azul"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 6,
+  "fields": {
+    "producto": 3,
+    "nombre": "Talla 30"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 7,
+  "fields": {
+    "producto": 3,
+    "nombre": "Talla 32"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 8,
+  "fields": {
+    "producto": 3,
+    "nombre": "Talla 34"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 9,
+  "fields": {
+    "producto": 4,
+    "nombre": "M"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 10,
+  "fields": {
+    "producto": 4,
+    "nombre": "L"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 11,
+  "fields": {
+    "producto": 5,
+    "nombre": "Talla 40"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 12,
+  "fields": {
+    "producto": 5,
+    "nombre": "Talla 41"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 13,
+  "fields": {
+    "producto": 5,
+    "nombre": "Talla 42"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 14,
+  "fields": {
+    "producto": 6,
+    "nombre": "Talla 38"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 15,
+  "fields": {
+    "producto": 6,
+    "nombre": "Talla 40"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 16,
+  "fields": {
+    "producto": 7,
+    "nombre": "Única"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 17,
+  "fields": {
+    "producto": 8,
+    "nombre": "Única"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 18,
+  "fields": {
+    "producto": 9,
+    "nombre": "Única"
+  }
+},
+{
+  "model": "catalog.variante",
+  "pk": 19,
+  "fields": {
+    "producto": 10,
+    "nombre": "Única"
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 1,
+  "fields": {
+    "variante": 1,
+    "cantidad": 10
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 2,
+  "fields": {
+    "variante": 2,
+    "cantidad": 8
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 3,
+  "fields": {
+    "variante": 3,
+    "cantidad": 5
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 4,
+  "fields": {
+    "variante": 4,
+    "cantidad": 6
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 5,
+  "fields": {
+    "variante": 5,
+    "cantidad": 0
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 6,
+  "fields": {
+    "variante": 6,
+    "cantidad": 4
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 7,
+  "fields": {
+    "variante": 7,
+    "cantidad": 7
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 8,
+  "fields": {
+    "variante": 8,
+    "cantidad": 3
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 9,
+  "fields": {
+    "variante": 9,
+    "cantidad": 5
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 10,
+  "fields": {
+    "variante": 10,
+    "cantidad": 2
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 11,
+  "fields": {
+    "variante": 11,
+    "cantidad": 3
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 12,
+  "fields": {
+    "variante": 12,
+    "cantidad": 6
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 13,
+  "fields": {
+    "variante": 13,
+    "cantidad": 4
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 14,
+  "fields": {
+    "variante": 14,
+    "cantidad": 12
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 15,
+  "fields": {
+    "variante": 15,
+    "cantidad": 9
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 16,
+  "fields": {
+    "variante": 16,
+    "cantidad": 20
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 17,
+  "fields": {
+    "variante": 17,
+    "cantidad": 3
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 18,
+  "fields": {
+    "variante": 18,
+    "cantidad": 0
+  }
+},
+{
+  "model": "catalog.itemstock",
+  "pk": 19,
+  "fields": {
+    "variante": 19,
+    "cantidad": 15
+  }
+},
+{
+  "model": "promotions.cupon",
+  "pk": 1,
+  "fields": {
+    "codigo": "BIENVENIDO10",
+    "tipo_descuento": "PORCENTAJE",
+    "monto": "10.00",
+    "activo": true,
+    "valido_desde": "2026-10-01T04:00:00Z",
+    "valido_hasta": "2026-12-31T04:00:00Z",
+    "total_minimo": "0.00"
+  }
+},
+{
+  "model": "promotions.cupon",
+  "pk": 2,
+  "fields": {
+    "codigo": "AHORRA200",
+    "tipo_descuento": "FIJO",
+    "monto": "200.00",
+    "activo": true,
+    "valido_desde": "2026-10-01T04:00:00Z",
+    "valido_hasta": "2026-12-31T04:00:00Z",
+    "total_minimo": "0.00"
+  }
+},
+{
+  "model": "promotions.cupon",
+  "pk": 3,
+  "fields": {
+    "codigo": "MINIMO3000",
+    "tipo_descuento": "FIJO",
+    "monto": "500.00",
+    "activo": true,
+    "valido_desde": "2026-10-01T04:00:00Z",
+    "valido_hasta": "2026-12-31T04:00:00Z",
+    "total_minimo": "3000.00"
+  }
+},
+{
+  "model": "promotions.cupon",
+  "pk": 4,
+  "fields": {
+    "codigo": "VENCIDO15",
+    "tipo_descuento": "PORCENTAJE",
+    "monto": "15.00",
+    "activo": true,
+    "valido_desde": "2026-01-01T04:00:00Z",
+    "valido_hasta": "2026-06-30T04:00:00Z",
+    "total_minimo": "0.00"
+  }
+},
+{
+  "model": "promotions.cupon",
+  "pk": 5,
+  "fields": {
+    "codigo": "INACTIVO20",
+    "tipo_descuento": "PORCENTAJE",
+    "monto": "20.00",
+    "activo": false,
+    "valido_desde": "2026-10-01T04:00:00Z",
+    "valido_hasta": "2026-12-31T04:00:00Z",
+    "total_minimo": "0.00"
+  }
+},
+{
+  "model": "orders.orden",
+  "pk": 1,
+  "fields": {
+    "clave_sesion": "ejemplo-ana-perez",
+    "nombre_envio": "Ana Pérez",
+    "direccion_envio": "Calle El Sol 45, Santiago",
+    "telefono": "809-555-0101",
+    "estado": "READY_TO_SHIP",
+    "subtotal": "1780.00",
+    "descuento": "0.00",
+    "total": "1780.00",
+    "cupon": null,
+    "fecha_creacion": "2026-10-06T23:48:03.897Z"
+  }
+},
+{
+  "model": "orders.orden",
+  "pk": 2,
+  "fields": {
+    "clave_sesion": "ejemplo-luis-gomez",
+    "nombre_envio": "Luis Gómez",
+    "direccion_envio": "Av. Estrella Sadhalá 120, Santiago",
+    "telefono": "829-555-0102",
+    "estado": "READY_TO_SHIP",
+    "subtotal": "5300.00",
+    "descuento": "200.00",
+    "total": "5100.00",
+    "cupon": 2,
+    "fecha_creacion": "2026-10-06T23:48:03.915Z"
+  }
+},
+{
+  "model": "orders.orden",
+  "pk": 3,
+  "fields": {
+    "clave_sesion": "ejemplo-maria-santos",
+    "nombre_envio": "María Santos",
+    "direccion_envio": "Calle Duarte 8, La Vega",
+    "telefono": "849-555-0103",
+    "estado": "READY_TO_SHIP",
+    "subtotal": "10980.00",
+    "descuento": "0.00",
+    "total": "10980.00",
+    "cupon": null,
+    "fecha_creacion": "2026-10-06T23:48:03.933Z"
+  }
+},
+{
+  "model": "orders.itemorden",
+  "pk": 1,
+  "fields": {
+    "orden": 1,
+    "variante": 2,
+    "cantidad": 2,
+    "precio_unitario": "650.00",
+    "total_linea": "1300.00"
+  }
+},
+{
+  "model": "orders.itemorden",
+  "pk": 2,
+  "fields": {
+    "orden": 1,
+    "variante": 16,
+    "cantidad": 1,
+    "precio_unitario": "480.00",
+    "total_linea": "480.00"
+  }
+},
+{
+  "model": "orders.itemorden",
+  "pk": 3,
+  "fields": {
+    "orden": 2,
+    "variante": 12,
+    "cantidad": 1,
+    "precio_unitario": "4200.00",
+    "total_linea": "4200.00"
+  }
+},
+{
+  "model": "orders.itemorden",
+  "pk": 4,
+  "fields": {
+    "orden": 2,
+    "variante": 15,
+    "cantidad": 2,
+    "precio_unitario": "550.00",
+    "total_linea": "1100.00"
+  }
+},
+{
+  "model": "orders.itemorden",
+  "pk": 5,
+  "fields": {
+    "orden": 3,
+    "variante": 17,
+    "cantidad": 5,
+    "precio_unitario": "2100.00",
+    "total_linea": "10500.00"
+  }
+},
+{
+  "model": "orders.itemorden",
+  "pk": 6,
+  "fields": {
+    "orden": 3,
+    "variante": 16,
+    "cantidad": 1,
+    "precio_unitario": "480.00",
+    "total_linea": "480.00"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 1,
+  "fields": {
+    "variante": 1,
+    "tipo": "ENTRADA",
+    "cantidad": 10,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.340Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 2,
+  "fields": {
+    "variante": 2,
+    "tipo": "ENTRADA",
+    "cantidad": 8,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.358Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 3,
+  "fields": {
+    "variante": 3,
+    "tipo": "ENTRADA",
+    "cantidad": 5,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.376Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 4,
+  "fields": {
+    "variante": 4,
+    "tipo": "ENTRADA",
+    "cantidad": 6,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.409Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 5,
+  "fields": {
+    "variante": 6,
+    "tipo": "ENTRADA",
+    "cantidad": 4,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.468Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 6,
+  "fields": {
+    "variante": 7,
+    "tipo": "ENTRADA",
+    "cantidad": 7,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.486Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 7,
+  "fields": {
+    "variante": 8,
+    "tipo": "ENTRADA",
+    "cantidad": 3,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.505Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 8,
+  "fields": {
+    "variante": 9,
+    "tipo": "ENTRADA",
+    "cantidad": 5,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.540Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 9,
+  "fields": {
+    "variante": 10,
+    "tipo": "ENTRADA",
+    "cantidad": 2,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.561Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 10,
+  "fields": {
+    "variante": 11,
+    "tipo": "ENTRADA",
+    "cantidad": 3,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.613Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 11,
+  "fields": {
+    "variante": 12,
+    "tipo": "ENTRADA",
+    "cantidad": 6,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.630Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 12,
+  "fields": {
+    "variante": 13,
+    "tipo": "ENTRADA",
+    "cantidad": 4,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.647Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 13,
+  "fields": {
+    "variante": 14,
+    "tipo": "ENTRADA",
+    "cantidad": 12,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.680Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 14,
+  "fields": {
+    "variante": 15,
+    "tipo": "ENTRADA",
+    "cantidad": 9,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.698Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 15,
+  "fields": {
+    "variante": 16,
+    "tipo": "ENTRADA",
+    "cantidad": 20,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.731Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 16,
+  "fields": {
+    "variante": 17,
+    "tipo": "ENTRADA",
+    "cantidad": 3,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.774Z"
+  }
+},
+{
+  "model": "warehouse.movimientoinventario",
+  "pk": 17,
+  "fields": {
+    "variante": 19,
+    "tipo": "ENTRADA",
+    "cantidad": 15,
+    "motivo": "Inventario inicial",
+    "orden_relacionada": null,
+    "fecha_creacion": "2026-10-06T23:48:03.835Z"
+  }
+}
+]
