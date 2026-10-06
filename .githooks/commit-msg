@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Rechaza el commit si el mensaje trae una marca de agua de IA.
+# Se activa una sola vez con:  git config core.hooksPath .githooks
+source "$(git rev-parse --show-toplevel)/.github/scripts/patrones.sh"
+
+if grep -iEq "$PATRON_COMMIT" "$1"; then
+  echo
+  echo "COMMIT RECHAZADO: el mensaje trae una marca de agua de IA:"
+  grep -iE "$PATRON_COMMIT" "$1" | sed 's/^/    /'
+  echo
+  echo "Vuelve a hacer el commit sin esa linea."
+  echo "Y desactiva la firma automatica en tu herramienta de IA (docs/GUIA-GIT.md, seccion 10)."
+  exit 1
+fi

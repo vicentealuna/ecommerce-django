@@ -38,6 +38,12 @@ git clone https://github.com/USUARIO/ecommerce-django.git
 cd ecommerce-django
 ```
 
+Activa el filtro de marcas de agua (sección 10). Se hace una sola vez:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 Prepara tu entorno:
 
 ```bash
@@ -286,3 +292,54 @@ git commit --amend -m "F-01: mensaje corregido"
 ```
 
 Para cualquier otra cosa que quieras deshacer, pregunta antes.
+
+---
+
+## 10. Cero marcas de agua de IA
+
+Muchas herramientas de IA firman solas lo que hacen: agregan al mensaje del commit una línea de co-autor con su nombre, o dejan comentarios en el código diciendo que ellas lo generaron. En este proyecto eso **no se permite**: los commits salen solo a tu nombre.
+
+Hay dos filtros:
+
+| Filtro | Dónde actúa | Qué hace |
+|--------|-------------|----------|
+| Hook local | En tu computadora, al hacer `git commit` | Rechaza el commit en el momento y te dice qué línea sobra. |
+| Revisión **Sin marca de agua** | En GitHub, en cada Pull Request | Revisa todos los commits y archivos nuevos del PR. Si falla, el PR no se puede unir. |
+
+El hook local solo funciona si lo activaste (sección 1). Compruébalo así; debe responder `.githooks`:
+
+```bash
+git config core.hooksPath
+```
+
+### Cómo evitarlo
+
+- En la configuración de tu herramienta de IA busca la opción de **co-autor** o **atribución** en commits y apágala.
+- Mejor aún: escribe tú el mensaje del commit y haz tú el `git commit`. Así además sabes qué estás subiendo.
+- Antes de hacer commit, lee el código que te dio la IA y borra comentarios que la mencionen.
+
+### Si el hook rechazó tu commit
+
+No se guardó nada. Repite el commit con un mensaje limpio:
+
+```bash
+git commit -m "F-01: mensaje sin firma de IA"
+```
+
+### Si la revisión de GitHub falló
+
+Abre la pestaña **Checks** del PR: te dice qué commit o qué línea tiene la marca.
+
+- **La marca está en un archivo:** bórrala, haz commit y push. La revisión se repite sola.
+- **La marca está en tu último commit:** corrige el mensaje y vuelve a subir. Este es el **único** caso en que se permite forzar, y solo en **tu propia rama**:
+
+```bash
+git commit --amend -m "F-01: mensaje sin firma de IA"
+```
+
+```bash
+git push --force-with-lease
+```
+
+- **La marca está en un commit más viejo:** no intentes arreglarlo solo. Escribe a Vicente.
+

@@ -72,6 +72,7 @@ git push -u origin main
 - Marca **Require a pull request before merging**.
 - Marca **Require approvals: 1**.
 - Marca **Block force pushes**.
+- Marca **Require status checks to pass** y agrega la revisión `revisar` (del flujo **Sin marca de agua**). Solo aparece en la lista después de que se haya ejecutado al menos una vez.
 
 Con esto nadie puede subir directo a `main`: todo pasa por un PR que tú apruebas. Ojo: esa regla también te aplica a ti, así que desde `V-01` tú también trabajas en ramas. Como eres el único revisor, en tus propios PR usa la opción de administrador para unirlos (o pide a un compañero que apruebe; es buena práctica).
 
@@ -102,6 +103,7 @@ Envía este mensaje al grupo (cambia la dirección):
 - [ ] Frandy y Claudio aparecen como colaboradores (invitación aceptada).
 - [ ] Intentar `git push` directo a `main` es rechazado.
 - [ ] Solo está permitido "merge commit".
+- [ ] La revisión **Sin marca de agua** aparece en verde en la pestaña Actions y es obligatoria para unir.
 
 ---
 
@@ -187,6 +189,7 @@ python -Xutf8 manage.py dumpdata catalog promotions orders warehouse --indent 2 
 2. **Mira "Files changed" en GitHub.** Preguntas rápidas:
    - ¿Tocó archivos que no son suyos? (ver tabla de dueños)
    - ¿Hay migraciones, `db.sqlite3` o librerías nuevas? Eso es devolución inmediata.
+   - ¿La revisión **Sin marca de agua** está en verde? Si está en rojo, no se une.
    - ¿Los nombres coinciden con `ACUERDOS.md`?
 3. **Pruébalo en tu equipo:**
 

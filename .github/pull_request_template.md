@@ -27,6 +27,7 @@ Copia aquí la lista de tu plan y marca lo que cumple. Si algo no se cumple, exp
 - [ ] Solo toqué archivos de los que soy dueño.
 - [ ] No subí migraciones, `db.sqlite3` ni librerías nuevas.
 - [ ] Usé los nombres de `docs/ACUERDOS.md`.
+- [ ] Ni mis commits ni mi código traen marcas de agua de IA.
 - [ ] Puedo explicar cada línea que subí.
 
 ## Capturas

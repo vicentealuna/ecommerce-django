@@ -187,6 +187,7 @@ Aquí se conectan el trabajo de Frandy y el de Claudio. Los nombres deben ser id
 5. Si algo no existe (producto, orden), se responde con **404**, no con un error 500.
 6. Nada de datos de prueba "quemados" en las vistas. Los datos salen de la base de datos.
 7. No subir `db.sqlite3`, `.venv/` ni `__pycache__/`. El `.gitignore` ya lo evita.
+8. **Cero marcas de agua de IA.** Ni en los commits (líneas de co-autor de una herramienta) ni en el código (comentarios o textos que digan que lo generó una IA). GitHub lo revisa solo en cada Pull Request y lo rechaza. Cómo evitarlo: `GUIA-GIT.md`, sección 10.
 
 ## 9. Si algo sale mal
 
