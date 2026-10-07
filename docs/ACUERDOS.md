@@ -132,6 +132,48 @@ Vicente los escribe todos en el plan `V-02`. Los demás los **usan** con estos n
 | `MovimientoInventario` | `variante`, `tipo` (`ENTRADA` o `SALIDA`), `cantidad`, `motivo`, `orden_relacionada` (opcional), `fecha_creacion` |
 | `Despacho` | `orden` (un solo despacho por orden), `fecha_despacho` |
 
+### Cómo ir de un modelo a otro
+
+Estos nombres ya existen en los modelos. Úsenlos tal cual en vistas y plantillas.
+
+| Desde | Se escribe | Devuelve |
+|-------|------------|----------|
+| una categoría | `categoria.productos` | sus productos |
+| una categoría | `categoria.subcategorias` | sus subcategorías |
+| un producto | `producto.imagenes` | sus imágenes |
+| un producto | `producto.variantes` | sus variantes |
+| un producto | `producto.precio_final` | el precio que se cobra |
+| un producto | `producto.en_oferta` | sí o no |
+| una variante | `variante.cantidad_disponible` | unidades en inventario (0 si no tiene) |
+| una variante | `variante.stock` | su fila de `ItemStock` (para modificarla) |
+| una orden | `orden.items` | sus líneas (`ItemOrden`) |
+| una orden | `orden.despacho` | su `Despacho`, si ya se despachó |
+| una orden | `orden.movimientos` | sus movimientos de inventario |
+
+Las opciones fijas se escriben así, nunca como texto suelto: `Orden.Estado.READY_TO_SHIP`, `Orden.Estado.DESPATCHED`, `MovimientoInventario.Tipo.SALIDA`, `MovimientoInventario.Tipo.ENTRADA`, `Cupon.TipoDescuento.PORCENTAJE`, `Cupon.TipoDescuento.FIJO`.
+
+### Datos de ejemplo
+
+Vienen en `base_de_datos/datos_iniciales.json`. Si los dañas probando, borra tu `db.sqlite3`, y corre `migrate` y `loaddata` otra vez.
+
+| Para probar | Usa |
+|-------------|-----|
+| Producto con varias variantes | Camiseta básica de algodón, Pantalón jean clásico, Tenis deportivos |
+| Producto con variante `Única` | Gorra clásica, Mochila urbana |
+| Producto en oferta | Camiseta estampada, Chaqueta impermeable, Sandalias de playa |
+| Una variante agotada | Camiseta estampada, `L / Azul` |
+| Producto totalmente agotado | Cinturón de cuero |
+| Producto inactivo (no debe verse) | Bufanda de lana |
+| Poco inventario | Mochila urbana (3 unidades) |
+| Subcategoría | Ropa > Camisetas |
+| Cupón de porcentaje | `BIENVENIDO10` (10 %) |
+| Cupón fijo | `AHORRA200` (200) |
+| Cupón con compra mínima | `MINIMO3000` (500 de descuento, mínimo 3000) |
+| Cupón vencido | `VENCIDO15` |
+| Cupón inactivo | `INACTIVO20` |
+| Orden despachable | Orden 1 (Ana Pérez) y orden 2 (Luis Gómez) |
+| Orden sin inventario suficiente | Orden 3 (María Santos): pide 5 mochilas y hay 3 |
+
 ### apps/cart (sin modelos)
 
 El carrito se guarda en la sesión con estas claves exactas:
@@ -140,6 +182,8 @@ El carrito se guarda en la sesión con estas claves exactas:
 |----------------------------|-----------|
 | `carrito` | Diccionario: id de variante (como texto) → cantidad. Ej.: `{"12": 2, "30": 1}` |
 | `cupon_codigo` | Texto con el código del cupón aplicado. No existe si no hay cupón. |
+
+El menú de `base.html` espera una variable llamada `carrito_cantidad` con el total de artículos del carrito. La entrega el procesador de contexto del plan `C-01`.
 
 ## 7. Rutas (URLs)
 

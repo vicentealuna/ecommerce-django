@@ -19,7 +19,7 @@ Este plan dice **qué** debe quedar funcionando, no trae el código. Investígal
 
 **Qué hacer**
 1. Sigue la sección 1 de `GUIA-GIT.md` hasta ver la tienda en tu navegador.
-2. Entra a `/admin/` con el usuario que te pase Vicente y mira los productos, variantes, inventario y cupones de ejemplo. Entiende cómo se relacionan.
+2. Entra a `/admin/` con el superusuario que creaste y mira los productos, variantes, inventario y cupones de ejemplo. Entiende cómo se relacionan. Lee también las tablas "Cómo ir de un modelo a otro" y "Datos de ejemplo" de `ACUERDOS.md`.
 3. Crea tu rama, y en el archivo `EQUIPO.md` agrega una línea con tu nombre y tus apps.
 4. Commit, push y abre el PR.
 

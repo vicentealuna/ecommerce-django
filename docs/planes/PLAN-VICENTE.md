@@ -154,7 +154,7 @@ Envía este mensaje al grupo (cambia la dirección):
    - cada modelo con su `__str__` legible.
 3. Migraciones creadas y aplicadas.
 4. **Admin** con todos los modelos registrados. En Producto, las imágenes y las variantes se editan en la misma pantalla (busca "inlines"). El `slug` se llena solo a partir del nombre.
-5. Superusuario creado. La contraseña la compartes por privado, **no** va en el repositorio.
+5. Superusuario creado en tu equipo con `createsuperuser`. Los usuarios no viajan en el repositorio: cada compañero crea el suyo.
 6. **Datos de ejemplo** cargados desde el admin:
    - 3 categorías, una con una subcategoría;
    - 8 a 10 productos: algunos destacados, algunos en oferta, uno inactivo, uno con varias variantes, uno con variante `Única`, uno con una variante en inventario 0;

@@ -38,9 +38,9 @@ Vicente deja el proyecto listo para que los demás solo tengan que programar su 
 
 | Código | Plan | Responsable | Depende de | Estado |
 |--------|------|-------------|------------|--------|
-| `V-00` | Repositorio y carpeta compartida | Vicente | — | Pendiente |
-| `V-01` | Esqueleto del proyecto | Vicente | V-00 | Pendiente |
-| `V-02` | Modelos, admin y datos iniciales | Vicente | V-01 | Pendiente |
+| `V-00` | Repositorio y carpeta compartida | Vicente | — | En curso (falta invitar y proteger `main`) |
+| `V-01` | Esqueleto del proyecto | Vicente | V-00 | En revisión |
+| `V-02` | Modelos, admin y datos iniciales | Vicente | V-01 | En revisión |
 | `F-00` | Incorporación | Frandy | V-02 | Pendiente |
 | `C-00` | Incorporación | Claudio | V-02 | Pendiente |
 
