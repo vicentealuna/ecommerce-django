@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Tienda{% endblock %}
+
+{% block contenido %}
+<h1>Productos destacados</h1>
+
+{% for producto in destacados %}
+    <p>{{ producto.nombre }} — {{ producto.precio_final }}</p>
+{% empty %}
+    <p>No hay productos destacados disponibles.</p>
+{% endfor %}
+{% endblock %}
