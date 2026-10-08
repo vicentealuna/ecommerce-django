@@ -38,12 +38,12 @@ Vicente deja el proyecto listo para que los demás solo tengan que programar su 
 
 | Código | Plan | Responsable | Depende de | Estado |
 |--------|------|-------------|------------|--------|
-| `V-00` | Repositorio y carpeta compartida | Vicente | — | Hecho|
-| `V-01` | Esqueleto del proyecto | Vicente | V-00 | En Hecho |
+| `V-00` | Repositorio y carpeta compartida | Vicente | — | Hecho |
+| `V-01` | Esqueleto del proyecto | Vicente | V-00 | Hecho |
 | `V-02` | Modelos, admin y datos iniciales | Vicente | V-01 | Hecho |
-| `F-00` | Incorporación | Frandy | V-02 |  | Hecho
+| `F-00` | Incorporación | Frandy | V-02 | Hecho |
 | `C-00` | Incorporación | Claudio | V-02 | Hecho |
-Hecho
+
 **La fase termina cuando:** los tres tienen el proyecto corriendo en su equipo con los mismos productos de ejemplo, y Frandy y Claudio ya unieron su PR de prueba.
 
 ### Fase 1 — Tienda y carrito
