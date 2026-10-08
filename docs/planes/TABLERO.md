@@ -38,11 +38,11 @@ Vicente deja el proyecto listo para que los demás solo tengan que programar su 
 
 | Código | Plan | Responsable | Depende de | Estado |
 |--------|------|-------------|------------|--------|
-| `V-00` | Repositorio y carpeta compartida | Vicente | — | En curso (falta invitar y proteger `main`) |
-| `V-01` | Esqueleto del proyecto | Vicente | V-00 | En revisión |
-| `V-02` | Modelos, admin y datos iniciales | Vicente | V-01 | En revisión |
-| `F-00` | Incorporación | Frandy | V-02 | Pendiente |
-| `C-00` | Incorporación | Claudio | V-02 | Pendiente |
+| `V-00` | Repositorio y carpeta compartida | Vicente | — | Hecho |
+| `V-01` | Esqueleto del proyecto | Vicente | V-00 | Hecho |
+| `V-02` | Modelos, admin y datos iniciales | Vicente | V-01 | Hecho |
+| `F-00` | Incorporación | Frandy | V-02 | Hecho |
+| `C-00` | Incorporación | Claudio | V-02 | Hecho |
 
 **La fase termina cuando:** los tres tienen el proyecto corriendo en su equipo con los mismos productos de ejemplo, y Frandy y Claudio ya unieron su PR de prueba.
 
@@ -54,7 +54,7 @@ Frandy y Claudio trabajan en paralelo, sin esperarse.
 |--------|------|-------------|------------|--------|
 | `F-01` | Tienda (inicio, categorías, búsqueda) | Frandy | F-00 | Pendiente |
 | `F-02` | Página de producto | Frandy | F-01 | Pendiente |
-| `C-01` | Carrito en sesión | Claudio | C-00 | Pendiente |
+| `C-01` | Carrito en sesión | Claudio | C-00 | Hecho |
 | `C-02` | Cupones | Claudio | C-01 | Pendiente |
 
 **La fase termina cuando:** se puede entrar a la tienda, abrir un producto, agregarlo al carrito, cambiar cantidades y aplicar un cupón.

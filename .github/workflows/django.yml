@@ -1,0 +1,27 @@
+name: Django
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Revisar la configuracion
+        run: python manage.py check
+      - name: Revisar que no falten migraciones
+        run: python manage.py makemigrations --check --dry-run
+      - name: Crear la base de datos y cargar los datos de ejemplo
+        run: |
+          python manage.py migrate
+          python manage.py loaddata base_de_datos/datos_iniciales.json
+      - name: Ejecutar las pruebas
+        run: python manage.py test
