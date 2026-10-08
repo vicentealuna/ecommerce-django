@@ -57,7 +57,42 @@
                         <span>Subtotal</span>
                         <strong>${{ subtotal }}</strong>
                     </div>
+                    {% if cupon %}
+                        <div class="d-flex justify-content-between">
+                            <span>Descuento ({{ cupon.codigo }})</span>
+                            <strong>−${{ descuento }}</strong>
+                        </div>
+                    {% endif %}
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <span>Total</span>
+                        <strong>${{ total }}</strong>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                {% if cupon %}
+                    <p class="mb-2">Cupón aplicado: <strong>{{ cupon.codigo }}</strong></p>
+                    <form method="post" action="{% url 'cart:quitar_cupon' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Quitar cupón</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'cart:aplicar_cupon' %}" class="row g-2">
+                        {% csrf_token %}
+                        <div class="col-sm">
+                            <label for="codigo-cupon" class="form-label">Código de cupón</label>
+                            <input id="codigo-cupon" type="text" name="codigo" class="form-control"
+                                   autocomplete="off" required>
+                        </div>
+                        <div class="col-sm-auto align-self-end">
+                            <button type="submit" class="btn btn-primary">Aplicar cupón</button>
+                        </div>
+                    </form>
+                {% endif %}
             </div>
         </div>
     {% else %}
