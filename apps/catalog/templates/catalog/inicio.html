@@ -1,25 +1,35 @@
 {% extends 'base.html' %}
 
+{# Definir el título de la pestaña dentro de base.html. #}
 {% block titulo %}Tienda{% endblock %}
 
 {% block contenido %}
+
+{# Mostrar los destacados en tarjetas; si no hay productos, informar al visitante. #}
 <h1>Productos destacados</h1>
 
-{% for producto in destacados %}
-    <p>{{ producto.nombre }} — {{ producto.precio_final }}</p>
-{% empty %}
-    <p>No hay productos destacados disponibles.</p>
-{% endfor %}
+<div class="row g-4">
+    {% for producto in destacados %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            {% include 'catalog/tarjeta_producto.html' with producto=producto %}
+        </div>
+    {% empty %}
+        <p>No hay productos destacados disponibles.</p>
+    {% endfor %}
+</div>
 
+{# Mostrar las ofertas con su precio original tachado y su precio final. #}
 <h2>Productos en oferta</h2>
 
-{% for producto in ofertas %}
-    <p>
-        {{ producto.nombre }} —
-        <del>{{ producto.precio }}</del>
-        {{ producto.precio_final }}
-    </p>
-{% empty %}
-    <p>No hay ofertas disponibles.</p>
-{% endfor %}
+{# Mostrar cada oferta con la misma tarjeta reutilizada en destacados. #}
+<div class="row g-4">
+    {% for producto in ofertas %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            {% include 'catalog/tarjeta_producto.html' with producto=producto %}
+        </div>
+    {% empty %}
+        <p>No hay ofertas disponibles.</p>
+    {% endfor %}
+</div>
+
 {% endblock %}
