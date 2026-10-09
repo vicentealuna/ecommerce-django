@@ -5,6 +5,22 @@
 
 {% block contenido %}
 
+{# Mostrar un enlace por categoría para navegar por el catálogo. #}
+<nav aria-label="Categorías" class="mb-4">
+    <ul class="nav flex-wrap">
+        {% for categoria in categorias %}
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="{% url 'catalog:categoria' categoria.slug %}">
+                    {{ categoria.nombre }}
+                </a>
+            </li>
+        {% empty %}
+            <li class="nav-item">No hay categorías disponibles.</li>
+        {% endfor %}
+    </ul>
+</nav>
+
 {# Mostrar los destacados en tarjetas; si no hay productos, informar al visitante. #}
 <h1>Productos destacados</h1>
 
