@@ -7,10 +7,10 @@ from . import views
 # Agrupar los nombres de las rutas bajo catalog.
 app_name = 'catalog'
 
-# Conectar inicio y categorías con sus vistas; búsqueda y producto siguen pendientes.
+# Conectar inicio, categorías y búsqueda; el detalle de producto sigue pendiente.
 urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('categoria/<slug:slug>/', views.categoria, name='categoria'),
-    path('buscar/', en_construccion, name='buscar'),
+    path('buscar/', views.buscar, name='buscar'),
     path('producto/<slug:slug>/', en_construccion, name='producto'),
 ]

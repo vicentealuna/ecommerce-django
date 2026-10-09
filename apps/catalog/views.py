@@ -37,9 +37,31 @@ def categoria(request, slug):
         | Q(categoria__padre=categoria_actual),
         activo=True,
     )
-
+       
     # Entregar los datos a la página de categoría.
     return render(request, 'catalog/categoria.html', {
         'categoria_actual': categoria_actual,
+        'productos': productos,
+    })
+    
+def buscar(request):
+    """Muestra productos que coinciden con el texto buscado."""
+    # Leer el texto enviado por el buscador y quitar espacios de los extremos.
+    consulta = request.GET.get('q', '').strip()
+
+    # Empezar sin resultados para evitar mostrar todo al buscar texto vacío.
+    productos = Producto.objects.none()
+
+    # Buscar coincidencias en cualquiera de los dos campos.
+    if consulta:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains=consulta)
+            | Q(descripcion__icontains=consulta),
+            activo=True,
+        )
+
+    # Entregar el texto buscado y los resultados a la plantilla.
+    return render(request, 'catalog/buscar.html', {
+        'consulta': consulta,
         'productos': productos,
     })
