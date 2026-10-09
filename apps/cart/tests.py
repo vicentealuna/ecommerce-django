@@ -1,11 +1,14 @@
 from decimal import Decimal
 import re
+from datetime import timedelta
 
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from apps.cart.context_processors import carrito_context
 from apps.catalog.models import Categoria, ItemStock, Producto, Variante
+from apps.promotions.models import Cupon
 
 
 class CarritoTests(TestCase):
@@ -22,6 +25,20 @@ class CarritoTests(TestCase):
         )
         self.variante = Variante.objects.create(producto=self.producto, nombre='M')
         ItemStock.objects.create(variante=self.variante, cantidad=5)
+
+    def crear_cupon(self, **cambios):
+        ahora = timezone.now()
+        datos = {
+            'codigo': 'AHORRA200',
+            'tipo_descuento': Cupon.TipoDescuento.FIJO,
+            'monto': Decimal('200.00'),
+            'activo': True,
+            'valido_desde': ahora - timedelta(days=1),
+            'valido_hasta': ahora + timedelta(days=1),
+            'total_minimo': Decimal('0.00'),
+        }
+        datos.update(cambios)
+        return Cupon.objects.create(**datos)
 
     def test_agregar_misma_variante_suma_cantidades(self):
         url = reverse('cart:agregar')
@@ -225,3 +242,99 @@ class CarritoTests(TestCase):
         })()
 
         self.assertEqual(carrito_context(request), {'carrito_cantidad': 5})
+
+    def test_aplicar_cupon_porcentaje_actualiza_resumen(self):
+        self.crear_cupon(
+            codigo='BIENVENIDO10',
+            tipo_descuento=Cupon.TipoDescuento.PORCENTAJE,
+            monto=Decimal('10.00'),
+        )
+        self.client.post(
+            reverse('cart:agregar'),
+            {'variante_id': self.variante.pk, 'cantidad': '2'},
+        )
+
+        aplicar = self.client.post(
+            reverse('cart:aplicar_cupon'),
+            {'codigo': ' bienvenido10 '},
+        )
+        response = self.client.get(reverse('cart:ver'))
+
+        self.assertRedirects(aplicar, reverse('cart:ver'))
+        self.assertEqual(self.client.session['cupon_codigo'], 'BIENVENIDO10')
+        self.assertEqual(response.context['subtotal'], Decimal('1800.00'))
+        self.assertEqual(response.context['descuento'], Decimal('180.00'))
+        self.assertEqual(response.context['total'], Decimal('1620.00'))
+        self.assertContains(response, 'BIENVENIDO10')
+
+    def test_descuento_fijo_mayor_que_subtotal_deja_total_en_cero(self):
+        self.crear_cupon(monto=Decimal('1500.00'))
+        self.client.post(
+            reverse('cart:agregar'),
+            {'variante_id': self.variante.pk, 'cantidad': '1'},
+        )
+
+        self.client.post(
+            reverse('cart:aplicar_cupon'),
+            {'codigo': 'AHORRA200'},
+        )
+        response = self.client.get(reverse('cart:ver'))
+
+        self.assertEqual(response.context['descuento'], Decimal('900.00'))
+        self.assertEqual(response.context['total'], Decimal('0.00'))
+
+    def test_cupon_minimo_se_revalida_y_se_quita_al_bajar_cantidad(self):
+        self.crear_cupon(total_minimo=Decimal('1500.00'))
+        self.client.post(
+            reverse('cart:agregar'),
+            {'variante_id': self.variante.pk, 'cantidad': '2'},
+        )
+        self.client.post(
+            reverse('cart:aplicar_cupon'),
+            {'codigo': 'AHORRA200'},
+        )
+
+        self.client.post(
+            reverse('cart:actualizar'),
+            {'variante_id': self.variante.pk, 'cantidad': '1'},
+        )
+        response = self.client.get(reverse('cart:ver'))
+
+        self.assertNotIn('cupon_codigo', self.client.session)
+        self.assertEqual(response.context['descuento'], Decimal('0'))
+        self.assertEqual(response.context['total'], Decimal('900.00'))
+        self.assertContains(response, 'La compra mínima para este cupón es de $1500.00.')
+
+    def test_cupon_rechazado_muestra_motivo_y_no_se_guarda(self):
+        self.crear_cupon(activo=False)
+        self.client.post(
+            reverse('cart:agregar'),
+            {'variante_id': self.variante.pk, 'cantidad': '1'},
+        )
+
+        response = self.client.post(
+            reverse('cart:aplicar_cupon'),
+            {'codigo': 'AHORRA200'},
+            follow=True,
+        )
+
+        self.assertNotIn('cupon_codigo', self.client.session)
+        self.assertContains(response, 'El cupón está inactivo.')
+
+    def test_quitar_cupon_requiere_post_y_limpia_sesion(self):
+        self.crear_cupon()
+        self.client.post(
+            reverse('cart:agregar'),
+            {'variante_id': self.variante.pk, 'cantidad': '1'},
+        )
+        self.client.post(
+            reverse('cart:aplicar_cupon'),
+            {'codigo': 'AHORRA200'},
+        )
+
+        respuesta_get = self.client.get(reverse('cart:quitar_cupon'))
+        respuesta_post = self.client.post(reverse('cart:quitar_cupon'))
+
+        self.assertEqual(respuesta_get.status_code, 405)
+        self.assertRedirects(respuesta_post, reverse('cart:ver'))
+        self.assertNotIn('cupon_codigo', self.client.session)
