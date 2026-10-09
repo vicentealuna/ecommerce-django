@@ -10,4 +10,16 @@
 {% empty %}
     <p>No hay productos destacados disponibles.</p>
 {% endfor %}
+
+<h2>Productos en oferta</h2>
+
+{% for producto in ofertas %}
+    <p>
+        {{ producto.nombre }} —
+        <del>{{ producto.precio }}</del>
+        {{ producto.precio_final }}
+    </p>
+{% empty %}
+    <p>No hay ofertas disponibles.</p>
+{% endfor %}
 {% endblock %}
