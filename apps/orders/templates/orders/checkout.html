@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Checkout{% endblock %}
+
+{% block contenido %}
+    <h1 class="mb-4">Finalizar compra</h1>
+
+    <div class="row g-4">
+        <section class="col-lg-7" aria-labelledby="envio-titulo">
+            <div class="card">
+                <div class="card-body">
+                    <h2 id="envio-titulo" class="h4 card-title">Datos de envío</h2>
+                    <form method="post" action="{% url 'orders:checkout' %}" novalidate>
+                        {% csrf_token %}
+
+                        {% if formulario.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ formulario.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        {% for campo in formulario %}
+                            <div class="mb-3">
+                                <label for="{{ campo.id_for_label }}" class="form-label">
+                                    {{ campo.label }} <span aria-hidden="true">*</span>
+                                </label>
+                                {{ campo }}
+                                {% if campo.help_text %}
+                                    <div class="form-text">{{ campo.help_text }}</div>
+                                {% endif %}
+                                {% for error in campo.errors %}
+                                    <div class="invalid-feedback d-block" role="alert">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary">Confirmar compra</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="col-lg-5" aria-labelledby="resumen-titulo">
+            <div class="card">
+                <div class="card-body">
+                    <h2 id="resumen-titulo" class="h4 card-title">Resumen del pedido</h2>
+                    <ul class="list-group list-group-flush mb-3">
+                        {% for linea in lineas %}
+                            <li class="list-group-item d-flex justify-content-between gap-3 px-0">
+                                <span>
+                                    {{ linea.variante.producto.nombre }} — {{ linea.variante.nombre }}
+                                    <small class="d-block text-muted">Cantidad: {{ linea.cantidad }}</small>
+                                </span>
+                                <strong>${{ linea.subtotal }}</strong>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal</span>
+                        <strong>${{ subtotal }}</strong>
+                    </div>
+                    {% if cupon %}
+                        <div class="d-flex justify-content-between">
+                            <span>Descuento ({{ cupon.codigo }})</span>
+                            <strong>−${{ descuento }}</strong>
+                        </div>
+                    {% endif %}
+                    <hr>
+                    <div class="d-flex justify-content-between fs-5">
+                        <span>Total</span>
+                        <strong>${{ total }}</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
