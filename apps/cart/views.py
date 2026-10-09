@@ -11,7 +11,7 @@ from apps.cart.carrito import (
     eliminar_variante,
     obtener_resumen,
 )
-from apps.promotions.views import validar_cupon
+from apps.promotions.cupones import validar_cupon
 
 
 def _obtener_datos_cupon(request, subtotal):
