@@ -88,7 +88,11 @@ def eliminar_del_carrito(request):
 @require_POST
 def aplicar_cupon(request):
     codigo = request.POST.get('codigo', '')
-    _, subtotal = obtener_resumen(request.session)
+    lineas, subtotal = obtener_resumen(request.session)
+    if not lineas:
+        messages.error(request, 'No puedes aplicar un cupón con el carrito vacío.')
+        return redirect('cart:ver')
+
     resultado = validar_cupon(codigo, subtotal)
     if not resultado.valido:
         messages.error(request, resultado.motivo)

@@ -321,6 +321,18 @@ class CarritoTests(TestCase):
         self.assertNotIn('cupon_codigo', self.client.session)
         self.assertContains(response, 'El cupón está inactivo.')
 
+    def test_no_aplica_cupon_con_carrito_vacio(self):
+        self.crear_cupon()
+
+        response = self.client.post(
+            reverse('cart:aplicar_cupon'),
+            {'codigo': 'AHORRA200'},
+            follow=True,
+        )
+
+        self.assertNotIn('cupon_codigo', self.client.session)
+        self.assertContains(response, 'No puedes aplicar un cupón con el carrito vacío.')
+
     def test_quitar_cupon_requiere_post_y_limpia_sesion(self):
         self.crear_cupon()
         self.client.post(
