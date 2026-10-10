@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{# Definir el título de la pestaña dentro de base.html. #}
+{% block titulo %}Tienda{% endblock %}
+
+{% block contenido %}
+
+{# Mostrar un enlace por categoría para navegar por el catálogo. #}
+<nav aria-label="Categorías" class="mb-4">
+    <ul class="nav flex-wrap">
+        {% for categoria in categorias %}
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="{% url 'catalog:categoria' categoria.slug %}">
+                    {{ categoria.nombre }}
+                </a>
+            </li>
+        {% empty %}
+            <li class="nav-item">No hay categorías disponibles.</li>
+        {% endfor %}
+    </ul>
+</nav>
+
+{# Mostrar los destacados en tarjetas; si no hay productos, informar al visitante. #}
+<h1>Productos destacados</h1>
+
+<div class="row g-4">
+    {% for producto in destacados %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            {% include 'catalog/tarjeta_producto.html' with producto=producto %}
+        </div>
+    {% empty %}
+        <p>No hay productos destacados disponibles.</p>
+    {% endfor %}
+</div>
+
+{# Mostrar las ofertas con su precio original tachado y su precio final. #}
+<h2>Productos en oferta</h2>
+
+{# Mostrar cada oferta con la misma tarjeta reutilizada en destacados. #}
+<div class="row g-4">
+    {% for producto in ofertas %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            {% include 'catalog/tarjeta_producto.html' with producto=producto %}
+        </div>
+    {% empty %}
+        <p>No hay ofertas disponibles.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
