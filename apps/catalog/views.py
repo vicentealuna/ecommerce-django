@@ -69,20 +69,20 @@ def buscar(request):
 def producto(request, slug):
     """Muestra el detalle de un producto activo."""
 
-    # Buscar el producto solicitado o responder con 404.
+    # Buscar el producto activo y cargar su categoría e imágenes relacionadas.
     producto_actual = get_object_or_404(
-        Producto,
+        Producto.objects.select_related('categoria').prefetch_related('imagenes'),
         slug=slug,
         activo=True,
     )
     
-    # Comprobar si al menos una variante tiene unidades disponibles.
-    hay_stock = producto_actual.variantes.filter(
-        stock__cantidad__gt=0,
-    ).exists()
+    # Cargar las variantes con su inventario y comprobar si alguna está disponible.
+    variantes = list(producto_actual.variantes.select_related('stock'))
+    hay_stock = any(variante.cantidad_disponible > 0 for variante in variantes)
     
-    # Entregar el producto a la plantilla de detalle.
+    # Entregar los datos a la plantilla; el carrito validará de nuevo al recibir el POST.
     return render(request, 'catalog/producto.html', {
-        'producto_actual':  producto_actual,
+        'producto_actual': producto_actual,
+        'variantes': variantes,
         'hay_stock': hay_stock,
     })
