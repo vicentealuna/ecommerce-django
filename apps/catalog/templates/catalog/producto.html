@@ -21,4 +21,16 @@
     <strong>{{ producto_actual.precio_final }}</strong>
 </p>
 
+{# Mostrar todas las imágenes del producto o un aviso si no tiene ninguna. #}
+<div class="row g-3 mb-4">
+    {% for imagen in producto_actual.imagenes.all %}
+        <div class="col-12 col-md-6">
+            <img src="{{ imagen.imagen.url }}"
+                 alt="{{ imagen.texto_alternativo }}"
+                 class="img-fluid rounded">
+        </div>
+    {% empty %}
+        <p>No hay imágenes disponibles para este producto.</p>
+    {% endfor %}
+</div>
 {% endblock %}
