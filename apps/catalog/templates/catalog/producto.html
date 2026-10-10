@@ -33,4 +33,21 @@
         <p>No hay imágenes disponibles para este producto.</p>
     {% endfor %}
 </div>
+
+{# Permitir elegir una variante y bloquear las que no tienen inventario. #}
+<div class="mb-3">
+    <label for="variante" class="form-label">Variante</label>
+
+    <select id="variante" name="variante_id" class="form-select" required>
+        <option value="" selected disabled>Selecciona una variante</option>
+
+        {% for variante in producto_actual.variantes.all %}
+            <option value="{{ variante.pk }}"
+                    {% if variante.cantidad_disponible == 0 %}disabled{% endif %}>
+                {{ variante.nombre }}
+                {% if variante.cantidad_disponible == 0 %}— Agotada{% endif %}
+            </option>
+        {% endfor %}
+    </select>
+</div>
 {% endblock %}
