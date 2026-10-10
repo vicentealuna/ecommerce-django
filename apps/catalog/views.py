@@ -75,8 +75,14 @@ def producto(request, slug):
         slug=slug,
         activo=True,
     )
-
+    
+    # Comprobar si al menos una variante tiene unidades disponibles.
+    hay_stock = producto_actual.variantes.filter(
+        stock__cantidad__gt=0,
+    ).exists()
+    
     # Entregar el producto a la plantilla de detalle.
     return render(request, 'catalog/producto.html', {
-        'producto_actual': producto_actual,
+        'producto_actual':  producto_actual,
+        'hay_stock': hay_stock,
     })
