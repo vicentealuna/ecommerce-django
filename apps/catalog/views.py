@@ -65,3 +65,18 @@ def buscar(request):
         'consulta': consulta,
         'productos': productos,
     })
+    
+def producto(request, slug):
+    """Muestra el detalle de un producto activo."""
+
+    # Buscar el producto solicitado o responder con 404.
+    producto_actual = get_object_or_404(
+        Producto,
+        slug=slug,
+        activo=True,
+    )
+
+    # Entregar el producto a la plantilla de detalle.
+    return render(request, 'catalog/producto.html', {
+        'producto_actual': producto_actual,
+    })
