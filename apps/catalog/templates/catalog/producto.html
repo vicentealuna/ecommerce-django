@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block titulo %}{{ producto_actual.nombre }}{% endblock %}
+
+{% block contenido %}
+
+{# Ofrecer enlaces al inicio y a la categoría del producto. #}
+<nav aria-label="Ruta de navegación" class="mb-4">
+    <ol class="breadcrumb text-break">
+        <li class="breadcrumb-item"><a href="{% url 'catalog:inicio' %}">Tienda</a></li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'catalog:categoria' producto_actual.categoria.slug %}">
+                {{ producto_actual.categoria.nombre }}
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ producto_actual.nombre }}</li>
+    </ol>
+</nav>
+
+{# Separar galería e información en escritorio y apilarlas en pantallas pequeñas. #}
+<div class="row g-4 align-items-start">
+    <section class="col-lg-7" aria-labelledby="titulo-imagenes">
+        <h2 id="titulo-imagenes" class="visually-hidden">Imágenes del producto</h2>
+
+        {# Mostrar todas las imágenes sin recortarlas y conservar su texto alternativo. #}
+        <div class="row g-3">
+            {% for imagen in producto_actual.imagenes.all %}
+                <div class="col-12 col-md-6">
+                    <div class="ratio ratio-1x1 bg-light rounded overflow-hidden">
+                        <img src="{{ imagen.imagen.url }}"
+                             alt="{{ imagen.texto_alternativo }}"
+                             class="w-100 h-100 object-fit-contain"
+                             {% if not forloop.first %}loading="lazy"{% endif %}>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="bg-light rounded p-4 text-center text-muted">
+                        No hay imágenes disponibles para este producto.
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="col-lg-5 text-break" aria-labelledby="titulo-producto">
+        {# Presentar el precio que se cobra y distinguir visualmente las ofertas. #}
+        {% if producto_actual.en_oferta %}
+            <span class="badge text-bg-success mb-2">En oferta</span>
+        {% endif %}
+        <h1 id="titulo-producto" class="h2">{{ producto_actual.nombre }}</h1>
+        <p class="fs-4 my-3">
+            {% if producto_actual.en_oferta %}
+                <span class="visually-hidden">Precio original:</span>
+                <del class="text-muted me-2">{{ producto_actual.precio }}</del>
+            {% endif %}
+            <span class="visually-hidden">Precio final:</span>
+            <strong>{{ producto_actual.precio_final }}</strong>
+        </p>
+
+        {# Conservar los párrafos de la descripción e informar si está vacía. #}
+        <h2 class="h5">Descripción</h2>
+        <div class="mb-4">
+            {% if producto_actual.descripcion %}
+                {{ producto_actual.descripcion|linebreaks }}
+            {% else %}
+                <p class="text-muted">No hay descripción disponible.</p>
+            {% endif %}
+        </div>
+
+        {# Mostrar la compra solo si existe alguna variante con inventario. #}
+        {% if hay_stock %}
+            <h2 class="h5">Elige tu variante y cantidad</h2>
+
+            {# Enviar los campos acordados al carrito por POST protegido con CSRF. #}
+            <form method="post" action="{% url 'cart:agregar' %}">
+                {% csrf_token %}
+
+                {# Incluir todas las variantes y bloquear las agotadas. #}
+                <div class="mb-3">
+                    <label for="variante" class="form-label">Variante</label>
+                    <select id="variante" name="variante_id" class="form-select"
+                            aria-describedby="ayuda-variante" required>
+                        <option value="" selected disabled>Selecciona una variante</option>
+                        {% for variante in variantes %}
+                            <option value="{{ variante.pk }}"
+                                    {% if variante.cantidad_disponible == 0 %}disabled{% endif %}>
+                                {{ variante.nombre }}
+                                {% if variante.cantidad_disponible == 0 %}— Agotada{% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <div id="ayuda-variante" class="form-text">
+                        Las variantes agotadas no se pueden seleccionar.
+                    </div>
+                </div>
+
+                {# Pedir unidades enteras; el carrito comprueba el inventario al enviar. #}
+                <div class="mb-3">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input type="number" id="cantidad" name="cantidad"
+                           class="form-control" min="1" step="1" value="1"
+                           aria-describedby="ayuda-cantidad" required>
+                    <div id="ayuda-cantidad" class="form-text">
+                        La disponibilidad se comprueba al agregar al carrito.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Agregar al carrito</button>
+            </form>
+        {% else %}
+            <p class="alert alert-warning" role="status">
+                <strong>Agotado</strong>. Este producto no tiene unidades disponibles.
+            </p>
+        {% endif %}
+    </section>
+</div>
+
+{% endblock %}

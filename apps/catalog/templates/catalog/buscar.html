@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Buscar productos{% endblock %}
+
+{% block contenido %}
+
+{# Identificar la búsqueda o pedir un texto si se envió vacío. #}
+<h1>Buscar productos</h1>
+
+{% if consulta %}
+    <p>Resultados para: <strong>{{ consulta }}</strong></p>
+{% else %}
+    <p>Escribe un nombre o una descripción en el buscador del menú.</p>
+{% endif %}
+
+{# Mostrar las coincidencias usando la tarjeta compartida. #}
+<div class="row g-4">
+    {% for producto in productos %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            {% include 'catalog/tarjeta_producto.html' with producto=producto %}
+        </div>
+    {% empty %}
+        {% if consulta %}
+            <p>No se encontraron productos para esta búsqueda.</p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}
