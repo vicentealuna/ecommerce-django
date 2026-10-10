@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %} almacén {% endblock %}
+
+{% block contenido %}
+{# Identificar la lista de órdenes que esperan despacho. #}
+<h1> Órdenes Pendientes de Despacho </h1>
+
+{# Mostrar las órdenes pendientes o informar si la lista está vacía. #}
+<ul>
+    {% for orden in ordenes %}
+        <li>{{ orden.pk }}, {{ orden.fecha_creacion }}, {{ orden.nombre_envio }}</li>
+    {% empty %}
+        <li>No hay órdenes pendientes de despacho.</li>
+
+    {% endfor %}
+</ul>
+{% endblock %}
