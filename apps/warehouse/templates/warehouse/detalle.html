@@ -35,12 +35,12 @@
                     <td>{{ item.variante.nombre }}</td>
                     <td>{{ item.cantidad }}</td>
 
-                    {# Usar cero cuando la variante no tiene registro de inventario. #}
-                    <td>{{ item.variante.stock.cantidad|default_if_none:0 }}</td>
+                    {# La propiedad devuelve cero cuando no existe la fila de inventario. #}
+                    <td>{{ item.variante.cantidad_disponible }}</td>
 
                     {# Comparar la cantidad pedida con las existencias disponibles. #}
                     <td>
-                        {% if item.cantidad > item.variante.stock.cantidad|default_if_none:0 %}
+                        {% if item.cantidad > item.variante.cantidad_disponible %}
                             <strong class="text-danger">¡No hay suficientes existencias!</strong>
                         {% else %}
                             <span class="text-success">Inventario suficiente</span>

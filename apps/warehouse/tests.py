@@ -105,6 +105,19 @@ class AlmacenTests(TestCase):
         self.assertFalse(Despacho.objects.exists())
         self.assertFalse(MovimientoInventario.objects.exists())
 
+    def test_detalle_sin_inventario_muestra_cero_y_aviso_insuficiente(self):
+        # El detalle debe usar cero incluso cuando no existe la fila de ItemStock.
+        ItemStock.objects.filter(variante=self.variante).delete()
+
+        respuesta = self.client.get(
+            reverse('warehouse:detalle', args=[self.orden.pk]),
+        )
+
+        self.assertEqual(respuesta.status_code, 200)
+        self.assertContains(respuesta, '<td>0</td>', html=True)
+        self.assertContains(respuesta, '¡No hay suficientes existencias!')
+        self.assertNotContains(respuesta, 'Inventario suficiente')
+
     def test_inventario_exacto_puede_quedar_en_cero(self):
         self.item.cantidad = 3
         self.item.save()
