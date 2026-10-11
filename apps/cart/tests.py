@@ -128,6 +128,22 @@ class CarritoTests(TestCase):
         self.assertContains(response, 'Camisa')
         self.assertContains(response, '1800,00')
 
+    def test_boton_finalizar_compra_solo_aparece_con_productos(self):
+        carrito_vacio = self.client.get(reverse('cart:ver'))
+        self.assertNotContains(carrito_vacio, 'Finalizar compra')
+
+        self.client.post(
+            reverse('cart:agregar'),
+            {'variante_id': self.variante.pk, 'cantidad': '1'},
+        )
+        carrito_con_productos = self.client.get(reverse('cart:ver'))
+
+        self.assertContains(
+            carrito_con_productos,
+            f'href="{reverse("orders:checkout")}"',
+        )
+        self.assertContains(carrito_con_productos, 'Finalizar compra')
+
     def test_actualizar_a_cero_elimina_la_linea(self):
         self.client.post(
             reverse('cart:agregar'),
