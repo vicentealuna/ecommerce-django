@@ -4,13 +4,14 @@ from config.views import en_construccion
 
 from . import views
 
+# Identificar estas rutas al usar la etiqueta url en las plantillas.
 app_name = 'warehouse'
 
-# Mostrar las órdenes pendientes en la página principal del almacén.
 urlpatterns = [
+    # Mostrar la lista de órdenes pendientes.
     path('', views.lista, name='lista'),
-    path('orden/<int:orden_id>/', en_construccion, name='detalle'),
+    # Consultar una orden usando el identificador recibido en la URL.
+    path('orden/<int:orden_id>/', views.detalle, name='detalle'),
+    # Reservar la ruta del despacho hasta implementar su lógica.
     path('orden/<int:orden_id>/despachar/', en_construccion, name='despachar'),
 ]
-
-
