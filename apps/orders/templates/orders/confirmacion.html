@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Orden confirmada{% endblock %}
+
+{% block contenido %}
+    <div class="alert alert-success" role="status">
+        <h1 class="h3 alert-heading">¡Gracias por tu compra!</h1>
+        <p class="mb-0">Tu orden #{{ orden.pk }} fue creada y está lista para despachar.</p>
+    </div>
+
+    <section class="card" aria-labelledby="orden-titulo">
+        <div class="card-body">
+            <h2 id="orden-titulo" class="h4 card-title">Resumen de la orden</h2>
+            <p><strong>Estado:</strong> {{ orden.get_estado_display }}</p>
+            <p><strong>Envío a:</strong> {{ orden.nombre_envio }} — {{ orden.direccion_envio }}</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio unitario</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in orden.items.all %}
+                            <tr>
+                                <td>{{ item.variante.producto.nombre }} — {{ item.variante.nombre }}</td>
+                                <td>${{ item.precio_unitario }}</td>
+                                <td>{{ item.cantidad }}</td>
+                                <td>${{ item.total_linea }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-end">
+                <div>
+                    <p class="mb-1"><strong>Subtotal:</strong> ${{ orden.subtotal }}</p>
+                    <p class="mb-1"><strong>Descuento:</strong> −${{ orden.descuento }}</p>
+                    <p class="mb-0 fs-5"><strong>Total:</strong> ${{ orden.total }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="{% url 'catalog:inicio' %}" class="btn btn-primary mt-3">Volver a la tienda</a>
+{% endblock %}

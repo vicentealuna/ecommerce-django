@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from apps.promotions.models import Cupon
-from apps.promotions.views import validar_cupon
+from apps.promotions.cupones import validar_cupon
 
 
 class ValidacionCuponTests(TestCase):
