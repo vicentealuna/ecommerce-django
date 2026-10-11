@@ -8,7 +8,11 @@ from django.views.decorators.http import require_http_methods
 from apps.cart.carrito import obtener_resumen
 from apps.orders.forms import CheckoutForm
 from apps.orders.models import Orden
-from apps.orders.services import ErrorCheckout, crear_orden_desde_carrito
+from apps.orders.services import (
+    ErrorCheckout,
+    crear_orden_desde_carrito,
+    validar_productos_carrito_activos,
+)
 from apps.promotions.cupones import validar_cupon
 
 
@@ -39,6 +43,12 @@ def _resumen_checkout(request):
 
 @require_http_methods(['GET', 'POST'])
 def checkout(request):
+    try:
+        validar_productos_carrito_activos(request.session)
+    except ErrorCheckout as error:
+        messages.error(request, str(error))
+        return redirect('cart:ver')
+
     lineas, subtotal, descuento, total, cupon, error_cupon = _resumen_checkout(request)
     if not lineas:
         messages.warning(request, 'Tu carrito está vacío.')

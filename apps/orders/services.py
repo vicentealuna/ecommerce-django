@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.db import transaction
 
 from apps.cart.carrito import obtener_resumen
-from apps.catalog.models import ItemStock, Variante
+from apps.catalog.models import ItemStock, Producto, Variante
 from apps.orders.models import ItemOrden, Orden
 from apps.promotions.cupones import validar_cupon
 
@@ -12,15 +12,66 @@ class ErrorCheckout(ValueError):
     pass
 
 
+def validar_productos_carrito_activos(session):
+    carrito = session.get('carrito', {})
+    if not isinstance(carrito, dict):
+        raise ErrorCheckout(
+            'El carrito contiene un producto que ya no está disponible. '
+            'Revísalo antes de continuar.'
+        )
+
+    variantes_ids = set()
+    for variante_id, cantidad in carrito.items():
+        try:
+            cantidad = int(cantidad)
+            variante_id = int(variante_id)
+        except (TypeError, ValueError):
+            raise ErrorCheckout(
+                'El carrito contiene un producto que ya no está disponible. '
+                'Revísalo antes de continuar.'
+            ) from None
+
+        if cantidad > 0:
+            variantes_ids.add(variante_id)
+
+    if not variantes_ids:
+        return variantes_ids
+
+    variantes = {
+        variante.pk: variante
+        for variante in Variante.objects.filter(pk__in=variantes_ids)
+    }
+    if len(variantes) != len(variantes_ids):
+        raise ErrorCheckout(
+            'Un producto del carrito ya no está disponible. '
+            'Revisa el carrito antes de continuar.'
+        )
+
+    productos_ids = {variante.producto_id for variante in variantes.values()}
+    productos = Producto.objects.filter(pk__in=productos_ids)
+    if productos.filter(activo=False).exists():
+        raise ErrorCheckout(
+            'Un producto del carrito ya no está disponible. '
+            'Revisa el carrito antes de continuar.'
+        )
+    return variantes_ids
+
+
 def crear_orden_desde_carrito(session, datos_envio):
-    lineas, _ = obtener_resumen(session)
-    if not lineas:
-        raise ErrorCheckout('El carrito está vacío.')
-
-    variantes_ids = [linea['variante'].pk for linea in lineas]
-    cantidades = {linea['variante'].pk: linea['cantidad'] for linea in lineas}
-
     with transaction.atomic():
+        variantes_carrito_ids = validar_productos_carrito_activos(session)
+        lineas, _ = obtener_resumen(session)
+        if not lineas:
+            raise ErrorCheckout('El carrito está vacío.')
+
+        variantes_ids = [linea['variante'].pk for linea in lineas]
+        if set(variantes_ids) != variantes_carrito_ids:
+            raise ErrorCheckout(
+                'Un producto del carrito ya no está disponible. '
+                'Revisa el carrito antes de continuar.'
+            )
+        cantidades = {linea['variante'].pk: linea['cantidad'] for linea in lineas}
+
         variantes = {
             variante.pk: variante
             for variante in Variante.objects.select_for_update()

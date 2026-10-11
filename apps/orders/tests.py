@@ -81,6 +81,16 @@ class CheckoutTests(TestCase):
         self.assertContains(response, 'Tu carrito está vacío.')
         self.assertEqual(Orden.objects.count(), 0)
 
+    def test_producto_inactivo_al_abrir_checkout_regresa_al_carrito_con_aviso(self):
+        self.producto.activo = False
+        self.producto.save(update_fields=['activo'])
+
+        response = self.client.get(reverse('orders:checkout'), follow=True)
+
+        self.assertEqual(Orden.objects.count(), 0)
+        self.assertContains(response, 'Un producto del carrito ya no está disponible.')
+        self.assertEqual(response.redirect_chain[0][0], reverse('cart:ver'))
+
     def test_formulario_vacio_muestra_errores_y_no_crea_orden(self):
         response = self.client.post(reverse('orders:checkout'), {})
 
@@ -223,6 +233,21 @@ class CheckoutTests(TestCase):
         self.assertContains(response, 'Inventario insuficiente para Camisa.')
         self.stock.refresh_from_db()
         self.assertEqual(self.stock.cantidad, 1)
+
+    def test_producto_desactivado_antes_de_confirmar_no_crea_orden(self):
+        self.client.get(reverse('orders:checkout'))
+        self.producto.activo = False
+        self.producto.save(update_fields=['activo'])
+
+        response = self.client.post(
+            reverse('orders:checkout'),
+            self.datos_checkout(),
+            follow=True,
+        )
+
+        self.assertEqual(Orden.objects.count(), 0)
+        self.assertContains(response, 'Un producto del carrito ya no está disponible.')
+        self.assertEqual(response.redirect_chain[0][0], reverse('cart:ver'))
 
     def test_cambio_de_precio_no_modifica_precio_guardado_en_orden(self):
         self.client.post(
