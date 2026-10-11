@@ -1,1 +1,103 @@
-/* Estilos propios del proyecto. Bootstrap ya viene cargado en base.html. */
+/* Colores y tipografía comunes; Bootstrap conserva la rejilla y componentes. */
+:root {
+    --bs-body-font-family: "Segoe UI", system-ui, sans-serif;
+    --bs-body-color: #243247;
+    --bs-body-bg: #f5f7fb;
+    --bs-link-color: #2456a6;
+    --bs-link-hover-color: #173d7c;
+    --tienda-borde: #dce3ee;
+    --tienda-radio: 1rem;
+}
+
+/* Permitir nombres largos y mantener una jerarquía clara en los títulos. */
+main { min-width: 0; overflow-wrap: anywhere; }
+h1, h2, h3 { color: #18263c; font-weight: 700; letter-spacing: -.025em; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+main > h2 { margin-top: 2.5rem; margin-bottom: 1.25rem; }
+
+/* Aplicar los tonos del contenido al menú existente. */
+header .navbar { --bs-dark-rgb: 24, 38, 60; padding-block: 1rem; }
+.navbar-brand { font-weight: 700; letter-spacing: -.025em; }
+.navbar .nav-link { --bs-nav-link-color: #d1dcec; --bs-nav-link-hover-color: #fff; }
+
+/* Unificar superficies, bordes y separación de las tarjetas y del almacén. */
+.card, .panel-almacen {
+    border: 1px solid var(--tienda-borde);
+    border-radius: var(--tienda-radio);
+    background: #fff;
+    box-shadow: 0 .3rem 1.2rem rgb(24 38 60 / 4%);
+}
+.card-body, .panel-almacen { padding: 1.5rem; }
+.tarjeta-producto { overflow: hidden; }
+.tarjeta-producto .card-img-top, .producto-sin-imagen {
+    aspect-ratio: 1;
+    object-fit: contain;
+    background: #edf1f7;
+}
+.tarjeta-producto .card-img-top { height: auto; }
+.card .badge { align-self: flex-start; }
+.producto-sin-imagen { display: grid; place-items: center; }
+
+/* Alinear los botones aunque los nombres de producto tengan distintas alturas. */
+.tarjeta-producto .card-body { display: flex; flex-direction: column; gap: .5rem; }
+.tarjeta-producto .btn { margin-top: auto; }
+.categorias-tienda .nav { gap: .5rem; }
+.categorias-tienda .nav-link {
+    background: #fff;
+    border: 1px solid var(--tienda-borde);
+    border-radius: 2rem;
+    padding: .6rem 1rem;
+}
+
+/* Unificar botones y campos, manteniendo el foco visible para usar el teclado. */
+.btn { border-radius: .6rem; font-weight: 600; padding: .6rem 1rem; }
+.btn-primary {
+    --bs-btn-bg: #2456a6;
+    --bs-btn-border-color: #2456a6;
+    --bs-btn-hover-bg: #173d7c;
+    --bs-btn-hover-border-color: #173d7c;
+    --bs-btn-active-bg: #173d7c;
+    --bs-btn-active-border-color: #173d7c;
+}
+.form-control, .form-select {
+    border-color: #b8c5d8;
+    border-radius: .6rem;
+    min-height: 2.75rem;
+}
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+textarea:focus-visible, .table-responsive:focus-visible {
+    outline: 3px solid #d29122;
+    outline-offset: 3px;
+}
+
+/* Encerrar el desplazamiento horizontal en la tabla, sin ensanchar la página. */
+.table-responsive {
+    position: relative;
+    background: #fff;
+    border: 1px solid var(--tienda-borde);
+    border-radius: var(--tienda-radio);
+    margin-bottom: 1.5rem;
+}
+.table {
+    --bs-table-color: #243247;
+    --bs-table-border-color: var(--tienda-borde);
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+.table th { background: #edf1f7; color: #18263c; white-space: nowrap; }
+.table .btn { white-space: nowrap; }
+.table td { overflow-wrap: normal; }
+.table td:first-child { min-width: 10rem; }
+.table input[type="number"] { min-width: 5.5rem; }
+.table > :not(caption) > * > * { padding: 1rem; }
+.alert { border-radius: .8rem; }
+.resumen-compra strong { flex-shrink: 0; }
+.resumen-compra span { min-width: 0; }
+
+/* Apilar encabezados y reducir el espacio de las superficies en celular. */
+@media (max-width: 575.98px) {
+    .card-body, .panel-almacen { padding: 1.1rem; }
+    main > .d-flex.justify-content-between { flex-wrap: wrap; gap: 1rem; }
+    .table { min-width: 38rem; }
+    .navbar-collapse > .btn { width: 100%; margin-top: .5rem; }
+}
