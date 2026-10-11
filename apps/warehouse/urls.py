@@ -1,11 +1,15 @@
 from django.urls import path
 
-from config.views import en_construccion
+from . import views
 
+# Identificar estas rutas al usar la etiqueta url en las plantillas.
 app_name = 'warehouse'
 
 urlpatterns = [
-    path('', en_construccion, name='lista'),
-    path('orden/<int:orden_id>/', en_construccion, name='detalle'),
-    path('orden/<int:orden_id>/despachar/', en_construccion, name='despachar'),
+    # Mostrar la lista de órdenes pendientes.
+    path('', views.lista, name='lista'),
+    # Consultar una orden usando el identificador recibido en la URL.
+    path('orden/<int:orden_id>/', views.detalle, name='detalle'),
+    # Enviar la solicitud de despacho a la vista que acepta solo POST.
+    path('orden/<int:orden_id>/despachar/', views.despachar, name='despachar'),
 ]
