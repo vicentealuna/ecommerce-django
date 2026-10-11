@@ -4,20 +4,40 @@
 
 {% block contenido %}
 {# Identificar la lista de órdenes que esperan despacho. #}
-<h1>Órdenes Pendientes de Despacho</h1>
+<h1 class="mb-4">Órdenes pendientes de despacho</h1>
 
 {# Mostrar las órdenes pendientes o informar si la lista está vacía. #}
-<ul>
-    {% for orden in ordenes %}
-        {# Mostrar los datos de la orden y su total de artículos. #}
-        <li>
-            {{ orden.pk }}, {{ orden.fecha_creacion }}, {{ orden.nombre_envio }}
-            — {{ orden.cantidad_articulos }} artículos
-            {# Abrir el detalle de esta orden. #}
-            <a href="{% url 'warehouse:detalle' orden.pk %}">Ver detalle</a>
-        </li>
-    {% empty %}
-        <li>No hay órdenes pendientes de despacho.</li>
-    {% endfor %}
-</ul>
+<div class="table-responsive" role="region" aria-label="Órdenes pendientes" tabindex="0">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Orden</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Destinatario</th>
+                <th scope="col">Artículos</th>
+                <th scope="col">Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for orden in ordenes %}
+                {# Separar los datos en columnas para facilitar la preparación. #}
+                <tr>
+                    <th scope="row">#{{ orden.pk }}</th>
+                    <td>{{ orden.fecha_creacion }}</td>
+                    <td>{{ orden.nombre_envio }}</td>
+                    <td>{{ orden.cantidad_articulos }}</td>
+                    <td>
+                        <a href="{% url 'warehouse:detalle' orden.pk %}" class="btn btn-outline-primary btn-sm">
+                            Ver detalle<span class="visually-hidden"> de la orden {{ orden.pk }}</span>
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No hay órdenes pendientes de despacho.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
