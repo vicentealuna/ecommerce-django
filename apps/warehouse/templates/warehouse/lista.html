@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Almacén{% endblock %}
+
+{% block contenido %}
+{# Identificar la lista de órdenes que esperan despacho. #}
+<h1>Órdenes Pendientes de Despacho</h1>
+
+{# Mostrar las órdenes pendientes o informar si la lista está vacía. #}
+<ul>
+    {% for orden in ordenes %}
+        {# Mostrar los datos de la orden y su total de artículos. #}
+        <li>
+            {{ orden.pk }}, {{ orden.fecha_creacion }}, {{ orden.nombre_envio }}
+            — {{ orden.cantidad_articulos }} artículos
+            {# Abrir el detalle de esta orden. #}
+            <a href="{% url 'warehouse:detalle' orden.pk %}">Ver detalle</a>
+        </li>
+    {% empty %}
+        <li>No hay órdenes pendientes de despacho.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
