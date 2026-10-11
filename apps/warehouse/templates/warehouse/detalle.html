@@ -56,6 +56,12 @@
     </table>
 </div>
 
+{# Enviar la solicitud de despacho mediante POST con protección CSRF. #}
+<form method="post" action="{% url 'warehouse:despachar' orden.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Despachar orden</button>
+</form>
+
 {# Regresar a la lista de órdenes pendientes. #}
 <a href="{% url 'warehouse:lista' %}">Volver a órdenes pendientes</a>
 
