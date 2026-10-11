@@ -11,6 +11,7 @@
 <p>Nombre de envío: {{ orden.nombre_envio }}</p>
 <p>Dirección: {{ orden.direccion_envio }}</p>
 <p>Teléfono: {{ orden.telefono }}</p>
+<p>Estado: {{ orden.get_estado_display }}</p>
 
 {# Permitir el desplazamiento de la tabla si no cabe en una pantalla pequeña. #}
 <div class="table-responsive">
@@ -56,11 +57,16 @@
     </table>
 </div>
 
-{# Enviar la solicitud de despacho mediante POST con protección CSRF. #}
-<form method="post" action="{% url 'warehouse:despachar' orden.pk %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Despachar orden</button>
-</form>
+{# Ofrecer el despacho solo cuando la orden sigue pendiente. #}
+{% if pendiente_despacho %}
+    {# Enviar la solicitud mediante POST con protección CSRF. #}
+    <form method="post" action="{% url 'warehouse:despachar' orden.pk %}" class="mb-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Despachar orden</button>
+    </form>
+{% else %}
+    <p class="alert alert-info">Esta orden ya fue despachada.</p>
+{% endif %}
 
 {# Regresar a la lista de órdenes pendientes. #}
 <a href="{% url 'warehouse:lista' %}">Volver a órdenes pendientes</a>

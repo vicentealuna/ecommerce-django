@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 # Identificar estas rutas al usar la etiqueta url en las plantillas.
