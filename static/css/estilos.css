@@ -94,6 +94,15 @@ textarea:focus-visible, .table-responsive:focus-visible {
 .resumen-compra strong { flex-shrink: 0; }
 .resumen-compra span { min-width: 0; }
 
+/* Conservar el ancho mínimo de la cantidad y del resumen del carrito. */
+.cantidad-carrito {
+    min-width: 180px;
+}
+
+.resumen-carrito {
+    min-width: 260px;
+}
+
 /* Apilar encabezados y reducir el espacio de las superficies en celular. */
 @media (max-width: 575.98px) {
     .card-body, .panel-almacen { padding: 1.1rem; }

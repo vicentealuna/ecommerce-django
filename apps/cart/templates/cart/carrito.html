@@ -28,7 +28,7 @@
                             <td>{{ linea.variante.producto.nombre }}</td>
                             <td>{{ linea.variante.nombre }}</td>
                             <td class="text-nowrap">${{ linea.precio_unitario }}</td>
-                            <td style="min-width: 180px;">
+                            <td class="cantidad-carrito">
                                 <form method="post" action="{% url 'cart:actualizar' %}" class="d-flex align-items-center gap-2">
                                     {% csrf_token %}
                                     <input type="hidden" name="variante_id" value="{{ linea.variante.id }}">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            <div class="card" style="min-width: 260px;">
+            <div class="card resumen-carrito">
                 <div class="card-body">
                     <h2 class="h5 card-title">Resumen</h2>
                     <div class="d-flex justify-content-between">
