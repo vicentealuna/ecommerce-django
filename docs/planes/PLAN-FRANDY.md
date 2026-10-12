@@ -141,3 +141,43 @@ En este plan sí puedes tocar las plantillas de Claudio, pero **solo clases y es
 - [ ] Ninguna página tiene barra de desplazamiento horizontal a 375 px de ancho.
 - [ ] El PR incluye capturas de cada página en celular y en escritorio.
 - [ ] No cambió ningún `name` de formulario ni ningún archivo `.py`.
+
+### Ajuste pedido en la revisión (12 oct): el dinero se ve igual en todo el sitio
+
+Va en esta misma rama y en el mismo PR. No abras uno nuevo. Son tres partes, un commit por cada una.
+
+Dos partes tocan archivos de Claudio (`carrito.html`, `apps/promotions/cupones.py` y sus pruebas). Vicente lo autoriza para que una sola persona cierre el tema. **Avísale a Claudio antes de empezar.** Los `.py` que se nombran aquí son la única excepción a la regla de arriba.
+
+**Parte A — El signo `$` en el catálogo**
+
+Qué pasa: el catálogo muestra los precios sin símbolo (`650,00`); el carrito, el checkout y la confirmación los muestran con él (`$650,00`).
+
+1. En `tarjeta_producto.html` y en `producto.html`, el precio original tachado y el precio final llevan el `$` pegado delante, igual que en el carrito. Son 4 lugares.
+2. La prueba `test_detalle_muestra_datos_categoria_y_oferta` de `apps/catalog/tests.py` espera los precios sin símbolo: se actualizan las dos líneas que los comparan. Nada más de ese archivo.
+
+**Parte B — Estilos en línea del carrito**
+
+Qué pasa: `apps/cart/templates/cart/carrito.html` tiene dos atributos `style="min-width: …"` escritos en el HTML.
+
+1. Dos reglas nuevas en `static/css/estilos.css`, con nombres de clase en español, con los mismos anchos mínimos (180px y 260px).
+2. En `carrito.html` se cambian los dos `style` por esas clases. No se tocan los `name`, los textos ni la lógica.
+
+**Parte C — El monto en el aviso del cupón**
+
+Qué pasa: el aviso de compra mínima escribe el monto con **punto** (`$3000.00`), y el resto de la página muestra el dinero con **coma** (`$3000,00`).
+
+1. En `apps/promotions/cupones.py`, el monto del aviso de compra mínima sale con coma decimal y dos cifras. No se tocan las condiciones del cupón ni el cálculo del descuento.
+2. Tres pruebas esperan el texto con punto: una en `apps/promotions/tests.py`, una en `apps/cart/tests.py` y una en `apps/orders/tests.py`. En cada una solo cambia el texto esperado; no se borra ninguna.
+
+**Cómo se comprueba**
+- [ ] Inicio, categoría, búsqueda y producto muestran todos los precios con `$`, también el tachado de las ofertas.
+- [ ] `git grep -n "style=" -- "*.html"` no muestra nada.
+- [ ] La columna de cantidad y la tarjeta de resumen del carrito se ven igual que antes del cambio.
+- [ ] Con un carrito de menos de 3000, aplicar `MINIMO3000` muestra el monto con coma.
+- [ ] `python manage.py test` pasa completo (73 pruebas).
+- [ ] Son 3 commits nuevos y entre los tres tocan solo 9 archivos: 2 plantillas del catálogo, `estilos.css`, `carrito.html`, `cupones.py` y 4 archivos de pruebas.
+- [ ] Ninguna página tiene barra de desplazamiento horizontal a 375 px.
+
+**Concepto que debes dominar:** cómo da Django formato a los números según el idioma del proyecto, y por qué una plantilla lo hace sola y un texto armado en Python no.
+
+**Commits sugeridos:** símbolo en el catálogo → estilos del carrito a `estilos.css` → formato del aviso del cupón.
