@@ -20,9 +20,9 @@
         {# Mostrar el precio final y, cuando hay oferta, tachar el precio original. #}
         <p class="card-text">
             {% if producto.en_oferta %}
-                <del class="text-muted">{{ producto.precio }}</del>
+                <del class="text-muted">${{ producto.precio }}</del>
             {% endif %}
-            <strong>{{ producto.precio_final }}</strong>
+            <strong>${{ producto.precio_final }}</strong>
         </p>
 
         {# Enlazar al detalle mediante el nombre de ruta y el slug del producto. #}

@@ -53,10 +53,10 @@
             <p class="fs-4 my-3">
                 {% if producto_actual.en_oferta %}
                     <span class="visually-hidden">Precio original:</span>
-                    <del class="text-muted me-2">{{ producto_actual.precio }}</del>
+                    <del class="text-muted me-2">${{ producto_actual.precio }}</del>
                 {% endif %}
                 <span class="visually-hidden">Precio final:</span>
-                <strong>{{ producto_actual.precio_final }}</strong>
+                <strong>${{ producto_actual.precio_final }}</strong>
             </p>
 
             {# Conservar los párrafos de la descripción e informar si está vacía. #}
