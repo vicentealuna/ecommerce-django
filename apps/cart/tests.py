@@ -319,7 +319,7 @@ class CarritoTests(TestCase):
         self.assertNotIn('cupon_codigo', self.client.session)
         self.assertEqual(response.context['descuento'], Decimal('0'))
         self.assertEqual(response.context['total'], Decimal('900.00'))
-        self.assertContains(response, 'La compra mínima para este cupón es de $1500.00.')
+        self.assertContains(response, 'La compra mínima para este cupón es de $1500,00.')
 
     def test_cupon_rechazado_muestra_motivo_y_no_se_guarda(self):
         self.crear_cupon(activo=False)
