@@ -13,14 +13,15 @@
             <h2 id="orden-titulo" class="h4 card-title">Resumen de la orden</h2>
             <p><strong>Estado:</strong> {{ orden.get_estado_display }}</p>
             <p><strong>Envío a:</strong> {{ orden.nombre_envio }} — {{ orden.direccion_envio }}</p>
-            <div class="table-responsive">
+            {# Permitir recorrer la tabla en pantallas pequeñas y con teclado. #}
+            <div class="table-responsive" role="region" aria-label="Artículos de la orden confirmada" tabindex="0">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Producto</th>
-                            <th>Precio unitario</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio unitario</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Total</th>
                         </tr>
                     </thead>
                     <tbody>

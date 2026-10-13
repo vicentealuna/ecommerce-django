@@ -185,7 +185,7 @@ class CheckoutTests(TestCase):
         )
 
         self.assertEqual(Orden.objects.count(), 0)
-        self.assertContains(response, 'La compra mínima para este cupón es de $3500.00.')
+        self.assertContains(response, 'La compra mínima para este cupón es de $3500,00.')
 
     def test_confirmacion_solo_es_visible_en_la_sesion_compradora(self):
         response = self.client.post(

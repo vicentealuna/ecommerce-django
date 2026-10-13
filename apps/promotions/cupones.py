@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from decimal import Decimal, ROUND_HALF_UP
-
+from django.utils import formats
 from django.utils import timezone
 
 from apps.promotions.models import Cupon
@@ -35,7 +35,7 @@ def validar_cupon(codigo, subtotal):
     if ahora > cupon.valido_hasta:
         return ResultadoCupon(False, Decimal('0'), 'El cupón venció.', cupon)
     if subtotal_decimal < cupon.total_minimo:
-        minimo = f'{cupon.total_minimo:.2f}'
+        minimo = formats.number_format(cupon.total_minimo, decimal_pos=2, use_l10n=True, force_grouping=False)
         return ResultadoCupon(
             False,
             Decimal('0'),

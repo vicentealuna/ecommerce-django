@@ -1,14 +1,14 @@
 {# Tarjeta reutilizable: recibe un producto y presenta sus datos y acceso al detalle. #}
-<article class="card h-100">
+<article class="card tarjeta-producto h-100">
 
     {# Mostrar la primera imagen o un mensaje si el producto no tiene imágenes. #}
     {% with imagen=producto.imagenes.first %}
         {% if imagen %}
             <img src="{{ imagen.imagen.url }}"
-                 alt="{{ imagen.texto_alternativo }}"
-                 class="card-img-top">
+                 alt="{{ imagen.texto_alternativo|default:producto.nombre }}"
+                 class="card-img-top" width="600" height="600">
         {% else %}
-            <div class="p-4 text-center text-muted">
+            <div class="producto-sin-imagen p-4 text-center text-muted">
                 Sin imagen disponible
             </div>
         {% endif %}
@@ -20,9 +20,9 @@
         {# Mostrar el precio final y, cuando hay oferta, tachar el precio original. #}
         <p class="card-text">
             {% if producto.en_oferta %}
-                <del class="text-muted">{{ producto.precio }}</del>
+                <del class="text-muted">${{ producto.precio }}</del>
             {% endif %}
-            <strong>{{ producto.precio_final }}</strong>
+            <strong>${{ producto.precio_final }}</strong>
         </p>
 
         {# Enlazar al detalle mediante el nombre de ruta y el slug del producto. #}

@@ -3,22 +3,23 @@
 {% block titulo %}Carrito{% endblock %}
 
 {% block contenido %}
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Carrito de compras</h1>
         <a href="{% url 'catalog:inicio' %}" class="btn btn-outline-secondary">Volver a la tienda</a>
     </div>
 
     {% if lineas %}
-        <div class="table-responsive">
+        {# Mantener la tabla dentro de la pantalla y permitir recorrerla con teclado. #}
+        <div class="table-responsive" role="region" aria-label="Artículos del carrito" tabindex="0">
             <table class="table table-bordered align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>Producto</th>
-                        <th>Variante</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                        <th></th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Variante</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,16 +27,20 @@
                         <tr>
                             <td>{{ linea.variante.producto.nombre }}</td>
                             <td>{{ linea.variante.nombre }}</td>
-                            <td>${{ linea.precio_unitario }}</td>
-                            <td style="min-width: 180px;">
+                            <td class="text-nowrap">${{ linea.precio_unitario }}</td>
+                            <td class="cantidad-carrito">
                                 <form method="post" action="{% url 'cart:actualizar' %}" class="d-flex align-items-center gap-2">
                                     {% csrf_token %}
                                     <input type="hidden" name="variante_id" value="{{ linea.variante.id }}">
-                                    <input type="number" name="cantidad" value="{{ linea.cantidad }}" min="0" class="form-control" required>
+                                    {# Asociar cada cantidad con su producto sin repetir identificadores. #}
+                                    <label for="cantidad-{{ linea.variante.id }}" class="visually-hidden">
+                                        Cantidad de {{ linea.variante.producto.nombre }} — {{ linea.variante.nombre }}
+                                    </label>
+                                    <input id="cantidad-{{ linea.variante.id }}" type="number" name="cantidad" value="{{ linea.cantidad }}" min="0" class="form-control" required>
                                     <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
                                 </form>
                             </td>
-                            <td>${{ linea.subtotal }}</td>
+                            <td class="text-nowrap">${{ linea.subtotal }}</td>
                             <td>
                                 <form method="post" action="{% url 'cart:eliminar' %}">
                                     {% csrf_token %}
@@ -50,9 +55,9 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            <div class="card" style="min-width: 260px;">
+            <div class="card resumen-carrito">
                 <div class="card-body">
-                    <h5 class="card-title">Resumen</h5>
+                    <h2 class="h5 card-title">Resumen</h2>
                     <div class="d-flex justify-content-between">
                         <span>Subtotal</span>
                         <strong>${{ subtotal }}</strong>

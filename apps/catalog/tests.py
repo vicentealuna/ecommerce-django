@@ -57,8 +57,8 @@ class DetalleProductoTests(TestCase):
         self.assertContains(respuesta, self.producto.nombre)
         self.assertContains(respuesta, '<p>Primera línea.</p>', html=True)
         self.assertContains(respuesta, reverse('catalog:categoria', args=['ropa']))
-        self.assertContains(respuesta, '<del class="text-muted me-2">100,00</del>', html=True)
-        self.assertContains(respuesta, '<strong>80,00</strong>', html=True)
+        self.assertContains(respuesta, '<del class="text-muted me-2">$100,00</del>', html=True)
+        self.assertContains(respuesta, '<strong>$80,00</strong>', html=True)
 
     def test_inactivo_e_inexistente_responden_404(self):
         self.producto.activo = False
