@@ -64,7 +64,7 @@ Frandy y Claudio trabajan en paralelo, sin esperarse.
 | Código | Plan | Responsable | Depende de | Estado |
 |--------|------|-------------|------------|--------|
 | `C-03` | Checkout y orden | Claudio | C-02 | Hecho |
-| `F-03` | Almacén | Frandy | F-00 (usa órdenes de ejemplo) | Devuelto |
+| `F-03` | Almacén | Frandy | F-00 (usa órdenes de ejemplo) | Hecho |
 
 **La fase termina cuando:** una compra hecha en la tienda aparece en el almacén y se puede despachar.
 
@@ -72,9 +72,9 @@ Frandy y Claudio trabajan en paralelo, sin esperarse.
 
 | Código | Plan | Responsable | Depende de | Estado |
 |--------|------|-------------|------------|--------|
-| `F-04` | Pulido visual y responsive | Frandy | Fase 2 | Pendiente |
-| `C-04` | Prueba del flujo completo y video demo | Claudio | Fase 2 | En revisión |
-| `V-03` | README, fixtures finales y entrega | Vicente | F-04, C-04 | Pendiente |
+| `F-04` | Pulido visual y responsive | Frandy | Fase 2 | Hecho |
+| `C-04` | Prueba del flujo completo | Claudio | Fase 2 | Hecho |
+| `V-03` | README, fixtures finales y entrega | Vicente | F-04, C-04 | Hecho |
 
 **La fase termina cuando:** alguien que nunca vio el proyecto puede clonarlo, seguir el README y hacer una compra completa.
 
@@ -105,7 +105,7 @@ Frandy no hace solo pantallas y Claudio no hace solo lógica: cada uno entrega f
 | Repositorio con commits significativos | Todos (ver GUIA-GIT) |
 | README con instrucciones y decisiones | V-03 |
 | Carpeta `base_de_datos/` con fixtures | V-02, V-03 |
-| Demo local o video | C-04 |
+| Demo local o video | C-04, V-03 (demo local, descrita en el README) |
 
 ---
 

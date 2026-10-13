@@ -4,8 +4,6 @@ Tienda en línea hecha con Django, sin cuentas de comprador. Permite recorrer un
 
 Proyecto final del curso de Django.
 
-- **Curso:** PENDIENTE (nombre del curso)
-- **Profesor:** PENDIENTE (nombre del profesor)
 - **Entrega:** 19 de octubre de 2026
 
 ## Equipo
@@ -14,7 +12,7 @@ Proyecto final del curso de Django.
 |------------|-------------------|
 | Vicente Luna | Repositorio, revisión de Pull Requests, esqueleto del proyecto, modelos, admin, datos de ejemplo y README. |
 | Frandy Torres | Catálogo y almacén: vistas, rutas y plantillas; estilos CSS y pulido visual responsive. |
-| Claudio | Carrito, cupones, checkout y órdenes; pruebas del flujo completo y video demo. |
+| Claudio | Carrito, cupones, checkout y órdenes; pruebas del flujo completo. |
 
 ## Requisitos
 
@@ -252,11 +250,15 @@ python manage.py test
 
 Los casos probados a mano sobre el flujo completo (compra con y sin cupón, cupón inválido, compra por encima del inventario, dos compradores a la vez, despacho correcto y despacho bloqueado) están en [docs/PRUEBAS.md](docs/PRUEBAS.md).
 
-## Video demo
+## Demo
 
-Recorrido completo: tienda → producto → carrito → cupón → checkout → almacén → despacho.
+La demostración se hace en local. Con el proyecto corriendo (sección "Cómo correr el proyecto"), el recorrido completo es:
 
-PENDIENTE (enlace del video)
+1. Entrar a la tienda y abrir un producto.
+2. Elegir una variante y agregarla al carrito.
+3. Aplicar un cupón de la tabla de datos de ejemplo.
+4. Confirmar la compra en el checkout.
+5. Entrar al almacén, abrir la orden y despacharla.
 
 ## Qué hizo cada integrante
 
@@ -280,4 +282,4 @@ PENDIENTE (enlace del video)
 - Carrito en sesión: agregar, actualizar, eliminar, totales y contador en el menú.
 - Cupones: validación, cálculo del descuento y mensajes de rechazo.
 - Checkout: formulario de envío, creación de la orden y página de confirmación.
-- Pruebas del flujo completo y video demo.
+- Pruebas del flujo completo, documentadas en `docs/PRUEBAS.md`.

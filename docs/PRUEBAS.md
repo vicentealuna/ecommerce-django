@@ -28,5 +28,5 @@ separados y transacciones revertidas para conservar intactos los datos de ejempl
 - `python manage.py check`: **sin problemas**.
 
 No se encontró un fallo reproducible durante estas pruebas, así que no se abrió
-ningún Issue. La grabación y el enlace de video se agregarán a la descripción
-del PR cuando esté lista la evidencia de navegador del flujo completo.
+ningún Issue. La demostración del flujo completo se hace en local, siguiendo el
+recorrido de la sección "Demo" del README.
