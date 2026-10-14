@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.promotions',
     'apps.orders',
     'apps.warehouse',
+    'apps.accounts',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.cart.context_processors.carrito_context',
+                'apps.accounts.context_processors.rol_context',
             ],
         },
     },
@@ -117,6 +119,13 @@ TIME_ZONE = 'America/Santo_Domingo'
 USE_I18N = True
 
 USE_TZ = True
+
+# El dinero se muestra con punto decimal (34.00); ver config/formatos/es/formats.py
+FORMAT_MODULE_PATH = ['config.formatos']
+
+# Cuentas de usuario (opcionales: la tienda y el almacén no exigen iniciar sesión)
+LOGIN_URL = 'accounts:ingresar'
+LOGIN_REDIRECT_URL = 'catalog:inicio'
 
 
 # Static files (CSS, JavaScript, Images)
