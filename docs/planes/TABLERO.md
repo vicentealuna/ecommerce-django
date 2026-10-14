@@ -12,7 +12,7 @@ Antes de empezar, lee en este orden:
 
 ## Calendario
 
-Entrega al profesor: **lunes 19 de octubre de 2026**. Son 13 días desde el arranque, así que no hay margen para atrasos largos.
+Entrega al profesor: **martes 13 de octubre de 2026** (la fecha original era el lunes 19; se adelantó). El calendario de abajo es el que se planificó al arrancar.
 
 | Fase | Fechas | Días |
 |------|--------|------|
@@ -75,6 +75,7 @@ Frandy y Claudio trabajan en paralelo, sin esperarse.
 | `F-04` | Pulido visual y responsive | Frandy | Fase 2 | Hecho |
 | `C-04` | Prueba del flujo completo | Claudio | Fase 2 | Hecho |
 | `V-03` | README, fixtures finales y entrega | Vicente | F-04, C-04 | Hecho |
+| `V-04` | Lavado de cara final: cuentas opcionales con roles, dinero con punto decimal, vista previa de imágenes en el admin y efectos visuales | Vicente | V-03 | Hecho |
 
 **La fase termina cuando:** alguien que nunca vio el proyecto puede clonarlo, seguir el README y hacer una compra completa.
 

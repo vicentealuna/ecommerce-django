@@ -72,7 +72,7 @@ class ValidacionCuponTests(TestCase):
         self.assertFalse(resultado.valido)
         self.assertEqual(
             resultado.motivo,
-            'La compra mínima para este cupón es de $300,00.',
+            'La compra mínima para este cupón es de $300.00.',
         )
 
     def test_descuento_fijo_no_supera_subtotal(self):

@@ -1,10 +1,10 @@
 # E-commerce en Django
 
-Tienda en línea hecha con Django, sin cuentas de comprador. Permite recorrer un catálogo, agregar productos a un carrito guardado en la sesión, aplicar cupones de descuento, confirmar la compra y despachar las órdenes desde una pantalla de almacén que descuenta el inventario.
+Tienda en línea hecha con Django que se puede usar sin crear una cuenta. Permite recorrer un catálogo, agregar productos a un carrito guardado en la sesión, aplicar cupones de descuento, confirmar la compra y despachar las órdenes desde una pantalla de almacén que descuenta el inventario.
 
 Proyecto final del curso de Django.
 
-- **Entrega:** 19 de octubre de 2026
+- **Entrega:** 13 de octubre de 2026
 
 ## Equipo
 
@@ -26,6 +26,8 @@ Las librerías (Django 5.2 y Pillow) se instalan desde `requirements.txt` en el 
 Los comandos están escritos para Windows. Se ejecutan en orden, desde una terminal.
 
 **1. Clonar el repositorio y entrar a la carpeta**
+
+En Windows conviene clonar en una carpeta de ruta corta (por ejemplo el escritorio o `C:\proyectos`). En rutas muy largas puede fallar la creación del entorno virtual.
 
 ```bash
 git clone https://github.com/vicentealuna/ecommerce-django.git
@@ -103,9 +105,24 @@ Los usuarios no viajan en el repositorio. Para entrar al admin hay que crear uno
 python manage.py createsuperuser
 ```
 
-Luego entrar a `http://127.0.0.1:8000/admin/` con ese usuario.
+Luego entrar a `http://127.0.0.1:8000/admin/` con ese usuario. También se puede iniciar sesión desde la tienda (botón **Ingresar**): a los administradores el menú les muestra el botón **Administración**, que lleva al admin.
 
-Desde el admin se administran las categorías, los productos (con sus imágenes y variantes en la misma pantalla), el inventario, los cupones y las órdenes. Los compradores no necesitan cuenta: "sin autenticación" se refiere a ellos, no al administrador.
+Desde el admin se administran las categorías, los productos, el inventario, los cupones, las órdenes y los usuarios con sus roles. En la pantalla de cada producto se suben, cambian y borran sus imágenes, y al lado de cada una se ve su vista previa.
+
+## Cuentas y roles (opcional)
+
+El documento del proyecto pide que no haya autenticación obligatoria, y así es: **la tienda, el carrito, el checkout y el almacén funcionan sin iniciar sesión.** Las cuentas son un agregado opcional que no cambia ese flujo.
+
+- **Registrarse:** botón **Registrarse** del menú (`/cuenta/registro/`). El usuario se guarda en la base de datos con su contraseña cifrada.
+- **Ingresar y salir:** botones **Ingresar** y **Salir** del menú. El carrito se conserva al iniciar y al cerrar sesión.
+
+| Rol | Quién lo tiene | Qué cambia |
+|-----|----------------|------------|
+| Cliente | Todo usuario que se registra | El menú muestra su nombre y su rol |
+| Almacén | Usuarios que el administrador agrega al grupo `Almacén` desde el admin | El menú muestra su rol |
+| Administrador | Usuarios con acceso al admin (los creados con `createsuperuser`) | El menú muestra el botón **Administración** |
+
+Los roles se asignan en el admin, en **Usuarios**: el grupo define si es Cliente o Almacén, y la casilla "Es staff" lo hace Administrador.
 
 ## Datos de ejemplo para probar
 
@@ -174,6 +191,14 @@ Después del paso 6 la tienda ya tiene datos pensados para probar cada caso.
 | `/almacen/orden/<id>/` | Detalle de la orden con el inventario disponible de cada artículo |
 | `/almacen/orden/<id>/despachar/` | Despacha la orden y descuenta el inventario (POST) |
 
+**Cuenta (opcional)**
+
+| Ruta | Qué hace |
+|------|----------|
+| `/cuenta/registro/` | Crea una cuenta de cliente |
+| `/cuenta/ingresar/` | Inicia sesión |
+| `/cuenta/salir/` | Cierra la sesión (POST) |
+
 **Administración**
 
 | Ruta | Qué hace |
@@ -184,7 +209,7 @@ Todo lo que cambia datos va por POST con su token CSRF y termina en una redirecc
 
 ## Cómo se manejan las sesiones
 
-La tienda no tiene cuentas de comprador. Para saber qué carrito le pertenece a cada visitante se usan las sesiones de Django: el navegador guarda una cookie con un identificador y el servidor guarda los datos de esa sesión en la base de datos.
+Para comprar no hace falta una cuenta. Para saber qué carrito le pertenece a cada visitante se usan las sesiones de Django: el navegador guarda una cookie con un identificador y el servidor guarda los datos de esa sesión en la base de datos.
 
 En la sesión se guardan solo dos cosas:
 
@@ -204,6 +229,10 @@ Al confirmar el checkout, el carrito se convierte en una orden guardada en la ba
 
 Dos ventanas (una normal y una de incógnito) se comportan como dos compradores distintos, cada uno con su carrito.
 
+**Sesiones y cuentas**
+
+Iniciar o cerrar sesión no cambia de comprador: el carrito sigue siendo el de ese navegador. Al cerrar sesión Django borra la sesión, así que el sitio guarda el carrito y el cupón y los devuelve a la sesión nueva. Para simular otro comprador hay que usar otra ventana de incógnito o borrar las cookies, no cambiar de usuario.
+
 ## Decisiones técnicas
 
 El documento de requerimientos dejaba algunos puntos abiertos. Estas son las decisiones que tomó el equipo y su motivo.
@@ -221,6 +250,8 @@ El documento de requerimientos dejaba algunos puntos abiertos. Estas son las dec
 | D9 | El catálogo y los cupones se cargan desde el admin de Django. | Evita construir pantallas de administración que no se pidieron. |
 | D10 | Diseño con Bootstrap 5 por CDN, más un archivo `static/css/estilos.css` para lo propio. | Da una base común y responsive a un equipo de tres personas. |
 | D11 | Vistas como funciones, no como clases. | Es lo que se enseñó en el curso. |
+| D12 | Las cuentas de usuario son opcionales y no bloquean ninguna página. Usan el sistema de usuarios y grupos que trae Django. | El documento pide que no haya autenticación obligatoria. Así el flujo de compra y de almacén se prueba sin iniciar sesión, y quien quiera puede registrarse. |
+| D13 | El dinero se muestra con punto decimal (`34.00`), definido en un solo lugar: `config/formatos/es/formats.py`. | Todas las páginas y los avisos usan el mismo formato sin repetirlo en cada plantilla. |
 
 ## Estructura del proyecto
 
@@ -232,7 +263,8 @@ ecommerce-django/
 │   ├── cart/          carrito en sesión
 │   ├── promotions/    cupones y su validación
 │   ├── orders/        checkout y órdenes
-│   └── warehouse/     almacén y despacho
+│   ├── warehouse/     almacén y despacho
+│   └── accounts/      registro, ingreso y roles (opcional)
 ├── templates/         plantilla base
 ├── static/css/        estilos propios
 ├── media/productos/   imágenes de los productos
@@ -269,6 +301,7 @@ La demostración se hace en local. Con el proyecto corriendo (sección "Cómo co
 - Definió todos los modelos, las migraciones y el admin.
 - Cargó los datos de ejemplo y las imágenes.
 - Revisó y fusionó los Pull Requests del equipo y escribió este README.
+- Cierre final: cuentas opcionales con roles, formato del dinero, vista previa de imágenes en el admin y efectos visuales.
 
 **Frandy Torres**
 
